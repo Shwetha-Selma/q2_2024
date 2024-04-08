@@ -1,0 +1,1405 @@
+---
+MainSourceFile:  '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/MainSrcFiles_placehold'
+Replacements:
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          1948
+    Length:          0
+    ReplacementText: "#define DPCT_PROFILING_ENABLED\n#include <sycl/sycl.hpp>\n#include <dpct/dpct.hpp>\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          1968
+    Length:          26
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          2050
+    Length:          34
+    ReplacementText: '#include "shfl_integral_image.dp.hpp"'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          2084
+    Length:          0
+    ReplacementText: "\n#include <cmath>\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          2789
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          2840
+    Length:          0
+    ReplacementText: ", const sycl::nd_item<3> &item_ct1,\n                    uint8_t *dpct_local"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          2872
+    Length:          29
+    ReplacementText: 'auto sums = (int *)dpct_local;'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          2915
+    Length:          10
+    ReplacementText: 'item_ct1.get_group(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          2928
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          2942
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          2977
+    Length:          8
+    ReplacementText: 'item_ct1.get_sub_group().get_local_range().get(0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          3043
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          3057
+    Length:          8
+    ReplacementText: 'item_ct1.get_sub_group().get_local_range().get(0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          3608
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1108:5: '__shfl_up_sync' was migrated with the experimental feature masked sub_group function which may not be supported by all compilers or runtimes. You may need to adjust the code.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          3620
+    Length:          37
+    ReplacementText: 'dpct::experimental::shift_sub_group_right(mask, item_ct1.get_sub_group(), value, i, width)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          3854
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          3868
+    Length:          8
+    ReplacementText: 'item_ct1.get_sub_group().get_local_range().get(0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          3880
+    Length:          8
+    ReplacementText: 'item_ct1.get_sub_group().get_local_range().get(0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          3930
+    Length:          15
+    ReplacementText: "/*\n  DPCT1113:33: Consider replacing sycl::nd_item::barrier(sycl::access::fence_space::local_space) with sycl::nd_item::barrier() if function \"shfl_scan_test\" is called in a multidimensional kernel.\n  */\n  item_ct1.barrier(sycl::access::fence_space::local_space)"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4081
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4094
+    Length:          8
+    ReplacementText: 'item_ct1.get_sub_group().get_local_range().get(0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4164
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4177
+    Length:          8
+    ReplacementText: 'item_ct1.get_sub_group().get_local_range().get(0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4219
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4232
+    Length:          8
+    ReplacementText: 'item_ct1.get_sub_group().get_local_range().get(0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4253
+    Length:          0
+    ReplacementText: "      /*\n      DPCT1108:6: '__shfl_up_sync' was migrated with the experimental feature masked sub_group function which may not be supported by all compilers or runtimes. You may need to adjust the code.\n      */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4267
+    Length:          58
+    ReplacementText: 'dpct::experimental::shift_sub_group_right(mask, item_ct1.get_sub_group(), warp_sum, i, (item_ct1.get_local_range(2) / item_ct1.get_sub_group().get_local_range().get(0)))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4411
+    Length:          15
+    ReplacementText: "/*\n  DPCT1113:34: Consider replacing sycl::nd_item::barrier(sycl::access::fence_space::local_space) with sycl::nd_item::barrier() if function \"shfl_scan_test\" is called in a multidimensional kernel.\n  */\n  item_ct1.barrier(sycl::access::fence_space::local_space)"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4786
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4801
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4836
+    Length:          10
+    ReplacementText: 'item_ct1.get_group(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4903
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4968
+    Length:          0
+    ReplacementText: ",\n                 const sycl::nd_item<3> &item_ct1, int &buf"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          4974
+    Length:          19
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          5007
+    Length:          10
+    ReplacementText: 'item_ct1.get_group(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          5020
+    Length:          10
+    ReplacementText: 'item_ct1.get_local_range(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          5034
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          5080
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          5123
+    Length:          10
+    ReplacementText: 'item_ct1.get_group(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          5143
+    Length:          15
+    ReplacementText: "/*\n  DPCT1113:35: Consider replacing sycl::nd_item::barrier(sycl::access::fence_space::local_space) with sycl::nd_item::barrier() if function \"uniform_add\" is called in a multidimensional kernel.\n  */\n  item_ct1.barrier(sycl::access::fence_space::local_space)"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7052
+    Length:          14
+    ReplacementText: 'dpct::device_info'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7097
+    Length:          27
+    ReplacementText: 'DPCT_CHECK_ERROR(cuda_device = dpct::dev_mgr::instance().current_device_id())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7146
+    Length:          49
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_device_info(deviceProp, dpct::dev_mgr::instance().get_device(cuda_device)))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7275
+    Length:          0
+    ReplacementText: "         /*\n         DPCT1005:36: The SYCL device version is different from CUDA Compute Compatibility. You may need to rewrite this code.\n         */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7295
+    Length:          5
+    ReplacementText: 'get_major_version()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7313
+    Length:          5
+    ReplacementText: 'get_minor_version()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7331
+    Length:          19
+    ReplacementText: 'get_max_compute_units()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7399
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1005:37: The SYCL device version is different from CUDA Compute Compatibility. You may need to rewrite this code.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7416
+    Length:          5
+    ReplacementText: 'get_major_version()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7570
+    Length:          109
+    ReplacementText: 'DPCT_CHECK_ERROR(h_data = (int *)sycl::malloc_host(sizeof(int) * n_elements, dpct::get_in_order_queue()))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          7700
+    Length:          111
+    ReplacementText: 'DPCT_CHECK_ERROR(h_result = (int *)sycl::malloc_host(sizeof(int) * n_elements, dpct::get_in_order_queue()))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          8156
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1083:8: The size of local memory in the migrated code may be different from the original code. Check that the allocated memory size in the migrated code is correct.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          8419
+    Length:          29
+    ReplacementText: 'std::min(n_partialSums, blockSize)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          8650
+    Length:          11
+    ReplacementText: 'dpct::event_ptr'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          8693
+    Length:          23
+    ReplacementText: 'DPCT_CHECK_ERROR(start = new sycl::event())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          8737
+    Length:          22
+    ReplacementText: 'DPCT_CHECK_ERROR(stop = new sycl::event())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          8814
+    Length:          50
+    ReplacementText: 'DPCT_CHECK_ERROR(d_data = (int *)sycl::malloc_device(sz, dpct::get_in_order_queue()))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          8892
+    Length:          66
+    ReplacementText: 'DPCT_CHECK_ERROR(d_partial_sums = (int *)sycl::malloc_device(partial_sz, dpct::get_in_order_queue()))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          8979
+    Length:          10
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_in_order_queue().memset'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9020
+    Length:          0
+    ReplacementText: '.wait())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9049
+    Length:          70
+    ReplacementText: 'DPCT_CHECK_ERROR(h_partial_sums = (int *)sycl::malloc_host(partial_sz, dpct::get_in_order_queue()))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9140
+    Length:          10
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_in_order_queue().memcpy'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9169
+    Length:          24
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9194
+    Length:          0
+    ReplacementText: '.wait())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9198
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1024:38: The original code returned the error code that was further consumed by the program logic. This original code was replaced with 0. You may need to rewrite the program logic consuming the error code.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9216
+    Length:          15
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::sync_barrier'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9239
+    Length:          1
+    ReplacementText: '&dpct::get_in_order_queue()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9241
+    Length:          0
+    ReplacementText: ')'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9244
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1049:7: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9246
+    Length:          77
+    ReplacementText: "dpct::get_in_order_queue().submit(\n    [&](sycl::handler &cgh) {\n      sycl::local_accessor<uint8_t, 1> dpct_local_acc_ct1(sycl::range<1>(shmem_sz), cgh);\n\n      cgh.parallel_for(\n        sycl::nd_range<3>(sycl::range<3>(1, 1, gridSize) * sycl::range<3>(1, 1, blockSize), sycl::range<3>(1, 1, blockSize)), \n        [=](sycl::nd_item<3> item_ct1) [[intel::reqd_sub_group_size(32)]] {\n          shfl_scan_test(d_data, 32, item_ct1, dpct_local_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get(), d_partial_sums);\n        });\n    });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9323
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9325
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1049:9: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9327
+    Length:          73
+    ReplacementText: "dpct::get_in_order_queue().submit(\n    [&](sycl::handler &cgh) {\n      sycl::local_accessor<uint8_t, 1> dpct_local_acc_ct1(sycl::range<1>(shmem_sz), cgh);\n\n      cgh.parallel_for(\n        sycl::nd_range<3>(sycl::range<3>(1, 1, p_gridSize) * sycl::range<3>(1, 1, p_blockSize), sycl::range<3>(1, 1, p_blockSize)), \n        [=](sycl::nd_item<3> item_ct1) [[intel::reqd_sub_group_size(32)]] {\n          shfl_scan_test(d_partial_sums, 32, item_ct1, dpct_local_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get(), NULL);\n        });\n    });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9400
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9402
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1049:10: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9404
+    Length:          131
+    ReplacementText: "dpct::get_in_order_queue().submit(\n    [&](sycl::handler &cgh) {\n      sycl::local_accessor<int, 0> buf_acc_ct1(cgh);\n\n      int * d_data_blockSize_ct0 = d_data + blockSize;\n\n      cgh.parallel_for(\n        sycl::nd_range<3>(sycl::range<3>(1, 1, gridSize - 1) * sycl::range<3>(1, 1, blockSize), sycl::range<3>(1, 1, blockSize)), \n        [=](sycl::nd_item<3> item_ct1) {\n          uniform_add(d_data_blockSize_ct0, d_partial_sums, n_elements, item_ct1, buf_acc_ct1);\n        });\n    });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9535
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9537
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1024:39: The original code returned the error code that was further consumed by the program logic. This original code was replaced with 0. You may need to rewrite the program logic consuming the error code.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9555
+    Length:          15
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::sync_barrier'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9577
+    Length:          1
+    ReplacementText: '&dpct::get_in_order_queue()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9579
+    Length:          0
+    ReplacementText: ')'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9600
+    Length:          26
+    ReplacementText: 'DPCT_CHECK_ERROR(stop->wait_and_throw())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9647
+    Length:          39
+    ReplacementText: 'DPCT_CHECK_ERROR(inc = (stop->get_profiling_info<sycl::info::event_profiling::command_end>() - start->get_profiling_info<sycl::info::event_profiling::command_start>()) / 1000000.0f)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9721
+    Length:          10
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_in_order_queue().memcpy'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9752
+    Length:          24
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9777
+    Length:          0
+    ReplacementText: '.wait())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9798
+    Length:          10
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_in_order_queue().memcpy'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9851
+    Length:          53
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          9905
+    Length:          0
+    ReplacementText: '.wait())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10219
+    Length:          20
+    ReplacementText: 'DPCT_CHECK_ERROR(sycl::free(h_data, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10239
+    Length:          0
+    ReplacementText: ')'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10260
+    Length:          22
+    ReplacementText: 'DPCT_CHECK_ERROR(sycl::free(h_result, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10282
+    Length:          0
+    ReplacementText: ')'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10303
+    Length:          28
+    ReplacementText: 'DPCT_CHECK_ERROR(sycl::free(h_partial_sums, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10331
+    Length:          0
+    ReplacementText: ')'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10352
+    Length:          16
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::dpct_free(d_data, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10368
+    Length:          0
+    ReplacementText: ')'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10389
+    Length:          24
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::dpct_free(d_partial_sums, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10413
+    Length:          0
+    ReplacementText: ')'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          10951
+    Length:          55
+    ReplacementText: 'DPCT_CHECK_ERROR(h_image = (unsigned int *)sycl::malloc_host(sz, dpct::get_in_order_queue()))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11275
+    Length:          50
+    ReplacementText: 'DPCT_CHECK_ERROR(d_data = (char *)sycl::malloc_device(sz, dpct::get_in_order_queue()))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11346
+    Length:          115
+    ReplacementText: 'DPCT_CHECK_ERROR(d_integral_image = (unsigned int *)sycl::malloc_device(n_elements * sizeof(int) * 4, dpct::get_in_order_queue()))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11482
+    Length:          10
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_in_order_queue().memset'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11507
+    Length:          0
+    ReplacementText: '.wait())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11528
+    Length:          10
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_in_order_queue().memset'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11563
+    Length:          0
+    ReplacementText: '.wait())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11569
+    Length:          11
+    ReplacementText: 'dpct::event_ptr'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11596
+    Length:          23
+    ReplacementText: 'start = new sycl::event()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11623
+    Length:          22
+    ReplacementText: 'stop = new sycl::event()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11740
+    Length:          15
+    ReplacementText: 'dpct::sync_barrier'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11764
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1049:12: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11766
+    Length:          136
+    ReplacementText: "dpct::get_in_order_queue().submit(\n    [&](sycl::handler &cgh) {\n      sycl::local_accessor<unsigned int, 1> sums_acc_ct1(sycl::range<1>(128), cgh);\n\n      cgh.parallel_for(\n        sycl::nd_range<3>(sycl::range<3>(1, 1, gridSize) * sycl::range<3>(1, 1, blockSize), sycl::range<3>(1, 1, blockSize)), \n        [=](sycl::nd_item<3> item_ct1) [[intel::reqd_sub_group_size(32)]] {\n          shfl_intimage_rows(reinterpret_cast<sycl::uint4 *>(d_data), reinterpret_cast<sycl::uint4 *>(d_integral_image), item_ct1, sums_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get());\n        });\n    });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11902
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11906
+    Length:          15
+    ReplacementText: 'dpct::sync_barrier'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11947
+    Length:          26
+    ReplacementText: 'DPCT_CHECK_ERROR(stop->wait_and_throw())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          11994
+    Length:          38
+    ReplacementText: 'DPCT_CHECK_ERROR(et = (stop->get_profiling_info<sycl::info::event_profiling::command_end>() - start->get_profiling_info<sycl::info::event_profiling::command_start>()) / 1000000.0f)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12151
+    Length:          10
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_in_order_queue().memcpy'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12191
+    Length:          24
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12216
+    Length:          0
+    ReplacementText: '.wait())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12344
+    Length:          4
+    ReplacementText: 'sycl::range<3>'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12357
+    Length:          5
+    ReplacementText: 1, 8, 32
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12367
+    Length:          4
+    ReplacementText: 'sycl::range<3>'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12381
+    Length:          16
+    ReplacementText: '1, 1, w / blockSz[2]'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12403
+    Length:          15
+    ReplacementText: 'dpct::sync_barrier'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12427
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1049:11: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12429
+    Length:          125
+    ReplacementText: "dpct::get_in_order_queue().submit(\n    [&](sycl::handler &cgh) {\n      sycl::local_accessor<unsigned int, 2> sums_acc_ct1(sycl::range<2>(32, 9), cgh);\n\n      cgh.parallel_for(\n        sycl::nd_range<3>(testGrid * blockSz, blockSz), \n        [=](sycl::nd_item<3> item_ct1) [[intel::reqd_sub_group_size(32)]] {\n          shfl_vertical_shfl((unsigned int *)d_integral_image, w, h, item_ct1, sums_acc_ct1);\n        });\n    });"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: true
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12554
+    Length:          1
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12558
+    Length:          15
+    ReplacementText: 'dpct::sync_barrier'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12599
+    Length:          26
+    ReplacementText: 'DPCT_CHECK_ERROR(stop->wait_and_throw())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12646
+    Length:          38
+    ReplacementText: 'DPCT_CHECK_ERROR(et = (stop->get_profiling_info<sycl::info::event_profiling::command_end>() - start->get_profiling_info<sycl::info::event_profiling::command_start>()) / 1000000.0f)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12809
+    Length:          10
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_in_order_queue().memcpy'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12849
+    Length:          24
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          12874
+    Length:          0
+    ReplacementText: '.wait())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13020
+    Length:          16
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::dpct_free(d_data, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13036
+    Length:          0
+    ReplacementText: ')'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13057
+    Length:          26
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::dpct_free(d_integral_image, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13083
+    Length:          0
+    ReplacementText: ')'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13104
+    Length:          21
+    ReplacementText: 'DPCT_CHECK_ERROR(sycl::free(h_image, dpct::get_in_order_queue())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13125
+    Length:          0
+    ReplacementText: ')'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13713
+    Length:          14
+    ReplacementText: 'dpct::device_info'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13758
+    Length:          27
+    ReplacementText: 'DPCT_CHECK_ERROR(cuda_device = dpct::dev_mgr::instance().current_device_id())'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13807
+    Length:          49
+    ReplacementText: 'DPCT_CHECK_ERROR(dpct::get_device_info(deviceProp, dpct::dev_mgr::instance().get_device(cuda_device)))'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13936
+    Length:          0
+    ReplacementText: "         /*\n         DPCT1005:40: The SYCL device version is different from CUDA Compute Compatibility. You may need to rewrite this code.\n         */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13956
+    Length:          5
+    ReplacementText: 'get_major_version()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13974
+    Length:          5
+    ReplacementText: 'get_minor_version()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          13992
+    Length:          19
+    ReplacementText: 'get_max_compute_units()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          14060
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1005:41: The SYCL device version is different from CUDA Compute Compatibility. You may need to rewrite this code.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Offset:          14077
+    Length:          5
+    ReplacementText: 'get_major_version()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+MainSourceFilesDigest:
+  - MainSourceFile:  '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan/shfl_scan.cu'
+    Digest:          eef6e954d96279dcb16afda8e0f3e02d
+DpctVersion:     19.0.0
+MainHelperFileName: ''
+USMLevel:        ''
+FeatureMap:      {}
+CompileTargets:  {}
+OptionMap:
+  AnalysisScopePath:
+    Value:           '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples'
+    Specified:       false
+  AsyncHandler:
+    Value:           'false'
+    Specified:       false
+  BuildScript:
+    Value:           '0'
+    Specified:       false
+  CodePinEnabled:
+    Value:           'false'
+    Specified:       false
+  CommentsEnabled:
+    Value:           'false'
+    Specified:       false
+  CompilationsDir:
+    Value:           '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/shfl_scan'
+    Specified:       true
+  CtadEnabled:
+    Value:           'false'
+    Specified:       false
+  EnablepProfiling:
+    Value:           'false'
+    Specified:       false
+  ExperimentalFlag:
+    Value:           '32'
+    Specified:       true
+  ExplicitNamespace:
+    Value:           '20'
+    Specified:       false
+  ExtensionDDFlag:
+    Value:           '0'
+    Specified:       false
+  ExtensionDEFlag:
+    Value:           '4294967295'
+    Specified:       false
+  HelperFuncPreferenceFlag:
+    Value:           '0'
+    Specified:       false
+  NDRangeDim:
+    Value:           '3'
+    Specified:       false
+  NoDRYPattern:
+    Value:           'false'
+    Specified:       false
+  OptimizeMigration:
+    Value:           'false'
+    Specified:       false
+  ProcessAll:
+    Value:           'false'
+    Specified:       false
+  RuleFile:
+    Value:           ''
+    Specified:       false
+  SyclNamedLambda:
+    Value:           'false'
+    Specified:       false
+  UsmLevel:
+    Value:           '1'
+    Specified:       false
+...

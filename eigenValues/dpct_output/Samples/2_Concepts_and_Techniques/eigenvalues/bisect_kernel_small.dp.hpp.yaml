@@ -1,0 +1,568 @@
+---
+MainSourceFile:  '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/dpct_output/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.dp.hpp'
+Replacements:
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          1697
+    Length:          32
+    ReplacementText: "#include <sycl/sycl.hpp>\n#include <dpct/dpct.hpp>\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          1730
+    Length:          34
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          1847
+    Length:          25
+    ReplacementText: '#include "bisect_util.dp.cpp"'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          2705
+    Length:          11
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          3124
+    Length:          0
+    ReplacementText: ",\n                             const sycl::nd_item<3> &item_ct1, float *s_left,\n                             float *s_right, unsigned int *s_left_count,\n                             unsigned int *s_right_count,\n                             unsigned int *s_compaction_list,\n                             unsigned int &compact_second_chunk,\n                             unsigned int &all_threads_converged,\n                             unsigned int &num_threads_active,\n                             unsigned int &num_threads_compaction"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          3164
+    Length:          16
+    ReplacementText: 'sycl::group<3>'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          3187
+    Length:          23
+    ReplacementText: 'item_ct1.get_group()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          3309
+    Length:          56
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          3368
+    Length:          57
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          3541
+    Length:          69
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          3613
+    Length:          70
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          3721
+    Length:          78
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          3978
+    Length:          45
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4026
+    Length:          46
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4116
+    Length:          43
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4215
+    Length:          47
+    ReplacementText: ''
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4773
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4800
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4828
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4861
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4895
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4914
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1065:7: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4916
+    Length:          13
+    ReplacementText: 'item_ct1.barrier()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          4977
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          5380
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1065:9: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          5384
+    Length:          13
+    ReplacementText: 'item_ct1.barrier()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          5454
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          5685
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1065:10: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          5689
+    Length:          13
+    ReplacementText: 'item_ct1.barrier()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          5784
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1065:11: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          5788
+    Length:          13
+    ReplacementText: 'item_ct1.barrier()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          6101
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          6257
+    Length:          0
+    ReplacementText: ', item_ct1'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          6261
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1065:12: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          6265
+    Length:          13
+    ReplacementText: 'item_ct1.barrier()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          6930
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          7051
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          7378
+    Length:          0
+    ReplacementText: ', item_ct1'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          7645
+    Length:          0
+    ReplacementText: ', item_ct1'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          7723
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1065:13: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          7727
+    Length:          13
+    ReplacementText: 'item_ct1.barrier()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8071
+    Length:          0
+    ReplacementText: ', item_ct1'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8281
+    Length:          0
+    ReplacementText: ', item_ct1'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8291
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1065:14: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8295
+    Length:          13
+    ReplacementText: 'item_ct1.barrier()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8324
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8574
+    Length:          0
+    ReplacementText: "    /*\n    DPCT1065:15: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n    */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8578
+    Length:          13
+    ReplacementText: 'item_ct1.barrier()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8598
+    Length:          0
+    ReplacementText: "  /*\n  DPCT1065:8: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n  */\n"
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8600
+    Length:          13
+    ReplacementText: 'item_ct1.barrier()'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8796
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8891
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8913
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          8997
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Offset:          9025
+    Length:          11
+    ReplacementText: 'item_ct1.get_local_id(2)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+MainSourceFilesDigest:
+  - MainSourceFile:  '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues/bisect_kernel_small.cuh'
+    Digest:          47d1a6eb3977616becb6cb4d637bc2a2
+DpctVersion:     19.0.0
+MainHelperFileName: ''
+USMLevel:        ''
+FeatureMap:      {}
+CompileTargets:  {}
+OptionMap:
+  AnalysisScopePath:
+    Value:           '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples'
+    Specified:       false
+  AsyncHandler:
+    Value:           'false'
+    Specified:       false
+  BuildScript:
+    Value:           '0'
+    Specified:       false
+  CodePinEnabled:
+    Value:           'false'
+    Specified:       false
+  CommentsEnabled:
+    Value:           'false'
+    Specified:       false
+  CompilationsDir:
+    Value:           '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/2_Concepts_and_Techniques/eigenvalues'
+    Specified:       true
+  CtadEnabled:
+    Value:           'false'
+    Specified:       false
+  EnablepProfiling:
+    Value:           'false'
+    Specified:       false
+  ExperimentalFlag:
+    Value:           '8'
+    Specified:       true
+  ExplicitNamespace:
+    Value:           '20'
+    Specified:       false
+  ExtensionDDFlag:
+    Value:           '0'
+    Specified:       false
+  ExtensionDEFlag:
+    Value:           '4294967295'
+    Specified:       false
+  HelperFuncPreferenceFlag:
+    Value:           '0'
+    Specified:       false
+  NDRangeDim:
+    Value:           '3'
+    Specified:       false
+  NoDRYPattern:
+    Value:           'false'
+    Specified:       false
+  OptimizeMigration:
+    Value:           'false'
+    Specified:       false
+  ProcessAll:
+    Value:           'false'
+    Specified:       false
+  RuleFile:
+    Value:           ''
+    Specified:       false
+  SyclNamedLambda:
+    Value:           'false'
+    Specified:       false
+  UsmLevel:
+    Value:           '1'
+    Specified:       false
+...
