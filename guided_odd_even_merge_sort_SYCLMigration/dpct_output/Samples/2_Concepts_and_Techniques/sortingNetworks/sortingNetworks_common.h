@@ -28,6 +28,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Shortcut definition
 ////////////////////////////////////////////////////////////////////////////////
+#include <sycl/sycl.hpp>
 typedef unsigned int uint;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -41,13 +42,9 @@ extern "C" int validateValues(uint *resKey, uint *resVal, uint *srcKey,
                               uint batchSize, uint arrayLength);
 
 ////////////////////////////////////////////////////////////////////////////////
-// CUDA sorting networks
+// sorting networks
 ////////////////////////////////////////////////////////////////////////////////
-
-//extern "C" uint bitonicSort(uint *d_DstKey, uint *d_DstVal, uint *d_SrcKey,
-  //                          uint *d_SrcVal, uint batchSize, uint arrayLength,
-    //                        uint dir);
 
 extern "C" uint oddEvenMergeSort(uint *d_DstKey, uint *d_DstVal, uint *d_SrcKey,
                                  uint *d_SrcVal, uint batchSize,
-                                 uint arrayLength, uint dir);
+                                 uint arrayLength, uint dir, sycl::queue &q);

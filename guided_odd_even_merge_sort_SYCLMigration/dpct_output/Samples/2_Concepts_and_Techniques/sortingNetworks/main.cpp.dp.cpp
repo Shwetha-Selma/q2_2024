@@ -55,8 +55,12 @@ int main(int argc, char **argv) try {
   dpct::err0 error;
   printf("%s Starting...\n\n", argv[0]);
 
-  printf("Starting up CUDA context...\n");
-  int dev = findCudaDevice(argc, (const char **)argv);
+  // sycl::property_list props{sycl::ext::oneapi::property::queue::discard_events{},
+  //                           sycl::property::queue::in_order{}};
+  // sycl::queue q( props );
+   sycl::queue q{sycl::default_selector_v, sycl::property::queue::in_order()};
+   std::cout << "\nRunning on " << q.get_device().get_info<sycl::info::device::name>()
+            << "\n";
 
   uint *h_InputKey, *h_InputVal, *h_OutputKeyGPU, *h_OutputValGPU;
   uint *d_InputKey, *d_InputVal, *d_OutputKey, *d_OutputVal;
@@ -82,22 +86,22 @@ int main(int argc, char **argv) try {
 
   printf("Allocating and initializing CUDA arrays...\n\n");
   error = DPCT_CHECK_ERROR(
-      d_InputKey = sycl::malloc_device<uint>(N, dpct::get_in_order_queue()));
+      d_InputKey = sycl::malloc_device<uint>(N, q));
   checkCudaErrors(error);
   error = DPCT_CHECK_ERROR(
-      d_InputVal = sycl::malloc_device<uint>(N, dpct::get_in_order_queue()));
+      d_InputVal = sycl::malloc_device<uint>(N, q));
   checkCudaErrors(error);
   error = DPCT_CHECK_ERROR(
-      d_OutputKey = sycl::malloc_device<uint>(N, dpct::get_in_order_queue()));
+      d_OutputKey = sycl::malloc_device<uint>(N, q));
   checkCudaErrors(error);
   error = DPCT_CHECK_ERROR(
-      d_OutputVal = sycl::malloc_device<uint>(N, dpct::get_in_order_queue()));
+      d_OutputVal = sycl::malloc_device<uint>(N, q));
   checkCudaErrors(error);
-  error = DPCT_CHECK_ERROR(dpct::get_in_order_queue()
+  error = DPCT_CHECK_ERROR(q
                                .memcpy(d_InputKey, h_InputKey, N * sizeof(uint))
                                .wait());
   checkCudaErrors(error);
-  error = DPCT_CHECK_ERROR(dpct::get_in_order_queue()
+  error = DPCT_CHECK_ERROR(q
                                .memcpy(d_InputVal, h_InputVal, N * sizeof(uint))
                                .wait());
   checkCudaErrors(error);
@@ -119,7 +123,7 @@ int main(int argc, char **argv) try {
 
     for (uint i = 0; i < numIterations; i++)
       threadCount = oddEvenMergeSort(d_OutputKey, d_OutputVal, d_InputKey,
-                                d_InputVal, N / arrayLength, arrayLength, DIR);
+                                d_InputVal, N / arrayLength, arrayLength, DIR, q);
 
     error =
         DPCT_CHECK_ERROR(dpct::get_current_device().queues_wait_and_throw());
@@ -141,12 +145,12 @@ int main(int argc, char **argv) try {
     printf("\nValidating the results...\n");
     printf("...reading back GPU results\n");
     error = DPCT_CHECK_ERROR(
-        dpct::get_in_order_queue()
+        q
             .memcpy(h_OutputKeyGPU, d_OutputKey, N * sizeof(uint))
             .wait());
     checkCudaErrors(error);
     error = DPCT_CHECK_ERROR(
-        dpct::get_in_order_queue()
+        q
             .memcpy(h_OutputValGPU, d_OutputVal, N * sizeof(uint))
             .wait());
     checkCudaErrors(error);
@@ -163,10 +167,10 @@ int main(int argc, char **argv) try {
 
   printf("Shutting down...\n");
   sdkDeleteTimer(&hTimer);
-  dpct::dpct_free(d_OutputVal, dpct::get_in_order_queue());
-  dpct::dpct_free(d_OutputKey, dpct::get_in_order_queue());
-  dpct::dpct_free(d_InputVal, dpct::get_in_order_queue());
-  dpct::dpct_free(d_InputKey, dpct::get_in_order_queue());
+  dpct::dpct_free(d_OutputVal, q);
+  dpct::dpct_free(d_OutputKey, q);
+  dpct::dpct_free(d_InputVal, q);
+  dpct::dpct_free(d_InputKey, q);
   free(h_OutputValGPU);
   free(h_OutputKeyGPU);
   free(h_InputVal);

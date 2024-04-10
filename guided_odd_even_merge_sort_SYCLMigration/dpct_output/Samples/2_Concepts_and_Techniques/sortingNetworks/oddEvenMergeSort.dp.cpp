@@ -161,11 +161,21 @@ void oddEvenMergeGlobal(uint *d_DstKey, uint *d_DstVal,
 // Interface function
 ////////////////////////////////////////////////////////////////////////////////
 // Helper function
-extern "C" uint factorRadix2(uint *log2L, uint L);
+extern "C" uint factorRadix2(uint *log2L, uint L) {
+  if (!L) {
+    *log2L = 0;
+    return 0;
+  } else {
+    for (*log2L = 0; (L & 1) == 0; L >>= 1, *log2L++)
+      ;
+
+    return L;
+  }
+}
 
 extern "C" uint oddEvenMergeSort(uint *d_DstKey, uint *d_DstVal, uint *d_SrcKey,
                                  uint *d_SrcVal, uint batchSize,
-                                 uint arrayLength, uint dir) {
+                                 uint arrayLength, uint dir, sycl::queue &q) {
   // Nothing to sort
   if (arrayLength < 2) return 0;
 
@@ -186,7 +196,7 @@ extern "C" uint oddEvenMergeSort(uint *d_DstKey, uint *d_DstVal, uint *d_SrcKey,
     limit. To get the device limit, query info::device::max_work_group_size.
     Adjust the work-group size if needed.
     */
-    dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+    q.submit([&](sycl::handler &cgh) {
       /*
       DPCT1101:36: 'SHARED_SIZE_LIMIT' expression was replaced with a value.
       Modify the code to use the original expression, provided in comments, if
@@ -222,7 +232,7 @@ extern "C" uint oddEvenMergeSort(uint *d_DstKey, uint *d_DstVal, uint *d_SrcKey,
     limit. To get the device limit, query info::device::max_work_group_size.
     Adjust the work-group size if needed.
     */
-    dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+    q.submit([&](sycl::handler &cgh) {
       /*
       DPCT1101:38: 'SHARED_SIZE_LIMIT' expression was replaced with a value.
       Modify the code to use the original expression, provided in comments, if
@@ -259,7 +269,7 @@ extern "C" uint oddEvenMergeSort(uint *d_DstKey, uint *d_DstVal, uint *d_SrcKey,
         // stride = [SHARED_SIZE_LIMIT / 2 .. 1] seems to be impossible as there
         // are dependencies between data elements crossing the SHARED_SIZE_LIMIT
         // borders
-        dpct::get_in_order_queue().parallel_for(
+        q.parallel_for(
             sycl::nd_range<3>(
                 sycl::range<3>(1, 1, (batchSize * arrayLength) / 512) *
                     sycl::range<3>(1, 1, 256),

@@ -56,10 +56,6 @@ int main(int argc, char **argv) {
   // Start logs
   printf("%s Starting...\n\n", argv[0]);
 
-  // initialize the GPU, either identified by --device
-  // or by picking the device with highest flop rate.
-  int devID = findCudaDevice(argc, (const char **)argv);
-
   // parsing the number of random numbers to generate
   int rand_n = DEFAULT_RAND_N;
 
@@ -85,6 +81,10 @@ int main(int argc, char **argv) {
   checkCudaErrors(
       DPCT_CHECK_ERROR(stream = dpct::get_current_device().create_queue()));
 
+  std::cout << "\nRunning on " << stream->get_device().get_info<sycl::info::device::name>()
+            << "\n";
+
+
   float *d_Rand;
   checkCudaErrors(DPCT_CHECK_ERROR(
       d_Rand = sycl::malloc_device<float>(rand_n, dpct::get_in_order_queue())));
@@ -94,12 +94,14 @@ int main(int argc, char **argv) {
                                        dpct::rng::random_engine_type::mt2203)));
   checkCudaErrors(DPCT_CHECK_ERROR(prngGPU->set_queue(stream)));
   checkCudaErrors(DPCT_CHECK_ERROR(prngGPU->set_seed(seed)));
+  prngGPU->set_engine_idx(1);
 
   dpct::rng::host_rng_ptr prngCPU;
   checkCudaErrors(DPCT_CHECK_ERROR(prngCPU = dpct::rng::create_host_rng(
                                        dpct::rng::random_engine_type::mt2203,
                                        dpct::cpu_device().default_queue())));
   checkCudaErrors(DPCT_CHECK_ERROR(prngCPU->set_seed(seed)));
+  prngCPU->set_engine_idx(1);
 
   //
   // Example 1: Compare random numbers generated on GPU and CPU
