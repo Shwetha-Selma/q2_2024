@@ -109,9 +109,9 @@ void shfl_scan_test(int *data, int width, const sycl::nd_item<3> &item_ct1,
   // scan sum the warp sums
   // the same shfl scan operation, but performed on warp sums
   //
-  if (warp_id == 0 &&
-      lane_id < (item_ct1.get_local_range(2) /
-                 item_ct1.get_sub_group().get_local_range().get(0))) {
+  if (warp_id == 0) {//&&
+     // lane_id < (item_ct1.get_local_range(2) /
+       //          item_ct1.get_sub_group().get_local_range().get(0))) {
     int warp_sum = sums[lane_id];
 
     int mask = (1 << (item_ct1.get_local_range(2) /
@@ -232,12 +232,14 @@ bool shuffle_simple_test(int argc, char **argv) {
   const int n_elements = 65536;
   int sz = sizeof(int) * n_elements;
 
+  sycl::queue q{sycl::default_selector_v, sycl::property::queue::in_order()};
+
   DPCT_CHECK_ERROR(
       h_data = (int *)sycl::malloc_host(sizeof(int) * n_elements,
-                                        dpct::get_in_order_queue()));
+                                        q));
   DPCT_CHECK_ERROR(
       h_result = (int *)sycl::malloc_host(sizeof(int) * n_elements,
-                                          dpct::get_in_order_queue()));
+                                          q));
 
   // initialize data:
   printf("Computing Simple Sum test\n");
@@ -273,23 +275,23 @@ bool shuffle_simple_test(int argc, char **argv) {
   float inc = 0;
 
   DPCT_CHECK_ERROR(
-      d_data = (int *)sycl::malloc_device(sz, dpct::get_in_order_queue()));
+      d_data = (int *)sycl::malloc_device(sz, q));
   DPCT_CHECK_ERROR(
       d_partial_sums =
-          (int *)sycl::malloc_device(partial_sz, dpct::get_in_order_queue()));
+          (int *)sycl::malloc_device(partial_sz, q));
   DPCT_CHECK_ERROR(
-      dpct::get_in_order_queue().memset(d_partial_sums, 0, partial_sz).wait());
+      q.memset(d_partial_sums, 0, partial_sz).wait());
 
   DPCT_CHECK_ERROR(
       h_partial_sums =
-          (int *)sycl::malloc_host(partial_sz, dpct::get_in_order_queue()));
+          (int *)sycl::malloc_host(partial_sz, q));
   DPCT_CHECK_ERROR(
-      dpct::get_in_order_queue().memcpy(d_data, h_data, sz).wait());
+      q.memcpy(d_data, h_data, sz).wait());
 
   
-      DPCT_CHECK_ERROR(dpct::sync_barrier(start, &dpct::get_in_order_queue()));
+      DPCT_CHECK_ERROR(dpct::sync_barrier(start));
  
-  dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+  q.submit([&](sycl::handler &cgh) {
     sycl::local_accessor<uint8_t, 1> dpct_local_acc_ct1(
         sycl::range<1>(shmem_sz), cgh);
 
@@ -306,7 +308,7 @@ bool shuffle_simple_test(int argc, char **argv) {
         });
   });
 
-  dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+  q.submit([&](sycl::handler &cgh) {
     sycl::local_accessor<uint8_t, 1> dpct_local_acc_ct1(
         sycl::range<1>(shmem_sz), cgh);
 
@@ -323,7 +325,7 @@ bool shuffle_simple_test(int argc, char **argv) {
         });
   });
  
-  dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+  q.submit([&](sycl::handler &cgh) {
     sycl::local_accessor<int, 0> buf_acc_ct1(cgh);
 
     int *d_data_blockSize_ct0 = d_data + blockSize;
@@ -338,7 +340,7 @@ bool shuffle_simple_test(int argc, char **argv) {
   });
  
   
-      DPCT_CHECK_ERROR(dpct::sync_barrier(stop, &dpct::get_in_order_queue()));
+      DPCT_CHECK_ERROR(dpct::sync_barrier(stop));
   DPCT_CHECK_ERROR(stop->wait_and_throw());
   DPCT_CHECK_ERROR(
       inc = (stop->get_profiling_info<
@@ -349,9 +351,9 @@ bool shuffle_simple_test(int argc, char **argv) {
   et += inc;
 
   DPCT_CHECK_ERROR(
-      dpct::get_in_order_queue().memcpy(h_result, d_data, sz).wait());
+      q.memcpy(h_result, d_data, sz).wait());
   
-      DPCT_CHECK_ERROR(dpct::get_in_order_queue()
+      DPCT_CHECK_ERROR(q
                            .memcpy(h_partial_sums, d_partial_sums, partial_sz)
                            .wait());
 
@@ -363,15 +365,15 @@ bool shuffle_simple_test(int argc, char **argv) {
   bool bTestResult = CPUverify(h_data, h_result, n_elements);
 
   
-      DPCT_CHECK_ERROR(sycl::free(h_data, dpct::get_in_order_queue()));
+      DPCT_CHECK_ERROR(sycl::free(h_data, q));
   
-      DPCT_CHECK_ERROR(sycl::free(h_result, dpct::get_in_order_queue()));
+      DPCT_CHECK_ERROR(sycl::free(h_result, q));
   
-      DPCT_CHECK_ERROR(sycl::free(h_partial_sums, dpct::get_in_order_queue()));
+      DPCT_CHECK_ERROR(sycl::free(h_partial_sums, q));
   
-      DPCT_CHECK_ERROR(dpct::dpct_free(d_data, dpct::get_in_order_queue()));
+      DPCT_CHECK_ERROR(dpct::dpct_free(d_data, q));
   DPCT_CHECK_ERROR(
-      dpct::dpct_free(d_partial_sums, dpct::get_in_order_queue()));
+      dpct::dpct_free(d_partial_sums, q));
 
   return bTestResult;
 }
@@ -387,11 +389,13 @@ bool shuffle_integral_image_test() {
   int n_elements = w * h;
   int sz = sizeof(unsigned int) * n_elements;
 
+  sycl::queue q{sycl::default_selector_v, sycl::property::queue::in_order()};
+
   printf("\nComputing Integral Image Test on size %d x %d synthetic data\n", w,
          h);
   printf("---------------------------------------------------\n");
   DPCT_CHECK_ERROR(h_image = (unsigned int *)sycl::malloc_host(
-                                       sz, dpct::get_in_order_queue()));
+                                       sz, q));
   // fill test "image" with synthetic 1's data
   memset(h_image, 0, sz);
 
@@ -402,14 +406,14 @@ bool shuffle_integral_image_test() {
 
   // Create a synthetic image for testing
   DPCT_CHECK_ERROR(
-      d_data = (char *)sycl::malloc_device(sz, dpct::get_in_order_queue()));
+      d_data = (char *)sycl::malloc_device(sz, q));
   DPCT_CHECK_ERROR(
       d_integral_image = (unsigned int *)sycl::malloc_device(
-          n_elements * sizeof(int) * 4, dpct::get_in_order_queue()));
+          n_elements * sizeof(int) * 4, q));
   DPCT_CHECK_ERROR(
-      dpct::get_in_order_queue().memset(d_data, 1, sz).wait());
+      q.memset(d_data, 1, sz).wait());
   DPCT_CHECK_ERROR(
-      dpct::get_in_order_queue().memset(d_integral_image, 0, sz).wait());
+      q.memset(d_integral_image, 0, sz).wait());
 
   dpct::event_ptr start, stop;
   start = new sycl::event();
@@ -420,7 +424,7 @@ bool shuffle_integral_image_test() {
   // Execute scan line prefix sum kernel, and time it
   dpct::sync_barrier(start);
  
-  dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+  q.submit([&](sycl::handler &cgh) {
     sycl::local_accessor<unsigned int, 1> sums_acc_ct1(sycl::range<1>(128),
                                                        cgh);
 
@@ -447,7 +451,7 @@ bool shuffle_integral_image_test() {
 
   // verify the scan line results
   DPCT_CHECK_ERROR(
-      dpct::get_in_order_queue().memcpy(h_image, d_integral_image, sz).wait());
+      q.memcpy(h_image, d_integral_image, sz).wait());
   err = verifyDataRowSums(h_image, w, h);
   printf("Diff = %d\n", err);
 
@@ -457,7 +461,7 @@ bool shuffle_integral_image_test() {
 
   dpct::sync_barrier(start);
   
-  dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+  q.submit([&](sycl::handler &cgh) {
     sycl::local_accessor<unsigned int, 2> sums_acc_ct1(sycl::range<2>(32, 9),
                                                        cgh);
 
@@ -480,18 +484,18 @@ bool shuffle_integral_image_test() {
 
   // Verify the column results
   DPCT_CHECK_ERROR(
-      dpct::get_in_order_queue().memcpy(h_image, d_integral_image, sz).wait());
+      q.memcpy(h_image, d_integral_image, sz).wait());
   printf("\n");
 
   int finalSum = h_image[w * h - 1];
   printf("CheckSum: %d, (expect %dx%d=%d)\n", finalSum, w, h, w * h);
 
   
-      DPCT_CHECK_ERROR(dpct::dpct_free(d_data, dpct::get_in_order_queue()));
+      DPCT_CHECK_ERROR(dpct::dpct_free(d_data, q));
   DPCT_CHECK_ERROR(
-      dpct::dpct_free(d_integral_image, dpct::get_in_order_queue()));
+      dpct::dpct_free(d_integral_image, q));
   
-      DPCT_CHECK_ERROR(sycl::free(h_image, dpct::get_in_order_queue()));
+      DPCT_CHECK_ERROR(sycl::free(h_image, q));
   // verify final sum: if the final value in the corner is the same as the size
   // of the buffer (all 1's) then the integral image was generated successfully
   return (finalSum == w * h) ? true : false;
