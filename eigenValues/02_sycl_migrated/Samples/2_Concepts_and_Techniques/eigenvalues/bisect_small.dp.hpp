@@ -47,7 +47,7 @@ void computeEigenvaluesSmallMatrix(const InputData &input,
                                    ResultDataSmall &result,
                                    const unsigned int mat_size, const float lg,
                                    const float ug, const float precision,
-                                   const unsigned int iterations);
+                                   const unsigned int iterations, sycl::queue q);
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Initialize variables and memory for the result for small matrices
@@ -55,13 +55,13 @@ void computeEigenvaluesSmallMatrix(const InputData &input,
 //! @param  mat_size  matrix_size
 ////////////////////////////////////////////////////////////////////////////////
 void initResultSmallMatrix(ResultDataSmall &result,
-                           const unsigned int mat_size);
+                           const unsigned int mat_size, sycl::queue q);
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Cleanup memory and variables for result for small matrices
 //! @param  result  handle to variables
 ////////////////////////////////////////////////////////////////////////////////
-void cleanupResultSmallMatrix(ResultDataSmall &result);
+void cleanupResultSmallMatrix(ResultDataSmall &result, sycl::queue q);
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Process the result obtained on the device, that is transfer to host and
@@ -74,7 +74,7 @@ void cleanupResultSmallMatrix(ResultDataSmall &result);
 void processResultSmallMatrix(const InputData &input,
                               const ResultDataSmall &result,
                               const unsigned int mat_size,
-                              const char *filename);
+                              const char *filename, sycl::queue q);
 }
 
 #endif  // #ifndef _BISECT_SMALL_CUH_

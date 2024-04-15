@@ -288,7 +288,7 @@ void storeNonEmptyIntervals(
     // stream compaction of second chunk
     is_active_second = 1;
     s_compaction_list_exc[item_ct1.get_local_id(2)] = 1;
-      ::atomic_exchange<sycl::access::address_space::generic_space>(
+      dpct::atomic_exchange<sycl::access::address_space::generic_space>(
         &compact_second_chunk, 1);
   } else {
     // only one non-empty child interval

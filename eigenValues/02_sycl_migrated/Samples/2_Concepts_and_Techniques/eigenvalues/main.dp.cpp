@@ -296,18 +296,18 @@ bool runTest(int argc, char **argv) {
   if (mat_size <= MAX_SMALL_MATRIX) {
     // initialize memory for result
     ResultDataSmall result;
-    initResultSmallMatrix(result, mat_size);
+    initResultSmallMatrix(result, mat_size, q);
 
     // run the kernel
     computeEigenvaluesSmallMatrix(input, result, mat_size, lg, ug, precision,
-                                  iters_timing);
+                                  iters_timing, q);
 
     // get the result from the device and do some sanity checks,
     // save the result
-    processResultSmallMatrix(input, result, mat_size, result_file);
+    processResultSmallMatrix(input, result, mat_size, result_file, q);
 
     // clean up
-    cleanupResultSmallMatrix(result);
+    cleanupResultSmallMatrix(result, q);
 
     printf("User requests non-default argument(s), skipping self-check!\n");
     bCompareResult = true;
@@ -318,15 +318,15 @@ bool runTest(int argc, char **argv) {
 
     // run the kernel
     computeEigenvaluesLargeMatrix(input, result, mat_size, precision, lg, ug,
-                                  iters_timing);
+                                  iters_timing, q);
 
     // get the result from the device and do some sanity checks
     // save the result if user specified matrix size
     bCompareResult = processResultDataLargeMatrix(
-        input, result, mat_size, result_file, user_defined, argv[0]);
+        input, result, mat_size, result_file, user_defined, argv[0], q);
 
     // cleanup
-    cleanupResultDataLargeMatrix(result);
+    cleanupResultDataLargeMatrix(result,q);
   }
 
   cleanupInputData(input, q);

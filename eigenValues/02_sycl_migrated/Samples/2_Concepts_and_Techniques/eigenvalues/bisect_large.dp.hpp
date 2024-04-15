@@ -47,7 +47,7 @@ void computeEigenvaluesLargeMatrix(const InputData &input,
                                    const unsigned int mat_size,
                                    const float precision, const float lg,
                                    const float ug,
-                                   const unsigned int iterations);
+                                   const unsigned int iterations, sycl::queue q);
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Initialize variables and memory for result
@@ -55,13 +55,13 @@ void computeEigenvaluesLargeMatrix(const InputData &input,
 //! @param  matr_size  size of the matrix
 ////////////////////////////////////////////////////////////////////////////////
 void initResultDataLargeMatrix(ResultDataLarge &result,
-                               const unsigned int mat_size);
+                               const unsigned int mat_size, sycl::queue q);
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Cleanup result memory
 //! @param result  handles to memory
 ////////////////////////////////////////////////////////////////////////////////
-void cleanupResultDataLargeMatrix(ResultDataLarge &result);
+void cleanupResultDataLargeMatrix(ResultDataLarge &result, sycl::queue q);
 
 ////////////////////////////////////////////////////////////////////////////////
 //! Process the result, that is obtain result from device and do simple sanity
@@ -76,7 +76,7 @@ bool processResultDataLargeMatrix(const InputData &input,
                                   const unsigned int mat_size,
                                   const char *filename,
                                   const unsigned int user_defined,
-                                  char *exec_path);
+                                  char *exec_path, sycl::queue q);
 };
 
 #endif  // #ifndef _BISECT_LARGE_CUH_
