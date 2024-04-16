@@ -220,7 +220,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/solverKernel.cuh'
     Offset:          3974
     Length:          0
-    ReplacementText: "    /*\n    DPCT1064:25: Migrated min call is used in a macro/template definition and may not be valid for all macro/template uses. Adjust the code.\n    */\n"
+    ReplacementText: "    /*\n    DPCT1064:30: Migrated min call is used in a macro/template definition and may not be valid for all macro/template uses. Adjust the code.\n    */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -310,7 +310,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/solverKernel.cuh'
     Offset:          4670
     Length:          0
-    ReplacementText: "    /*\n    DPCT1064:26: Migrated min call is used in a macro/template definition and may not be valid for all macro/template uses. Adjust the code.\n    */\n"
+    ReplacementText: "    /*\n    DPCT1064:31: Migrated min call is used in a macro/template definition and may not be valid for all macro/template uses. Adjust the code.\n    */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -364,7 +364,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/solverKernel.cuh'
     Offset:          5132
     Length:          0
-    ReplacementText: "  /*\n  DPCT1065:8: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n  */\n"
+    ReplacementText: "  /*\n  DPCT1065:13: Consider replacing sycl::nd_item::barrier() with sycl::nd_item::barrier(sycl::access::fence_space::local_space) for better performance if there is no access to global memory.\n  */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -418,7 +418,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/solverKernel.cuh'
     Offset:          6903
     Length:          0
-    ReplacementText: "  /*\n  DPCT1049:9: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ReplacementText: "  /*\n  DPCT1049:14: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -476,8 +476,8 @@ OptionMap:
     Value:           'false'
     Specified:       false
   ExperimentalFlag:
-    Value:           '1024'
-    Specified:       true
+    Value:           '0'
+    Specified:       false
   ExplicitNamespace:
     Value:           '20'
     Specified:       false

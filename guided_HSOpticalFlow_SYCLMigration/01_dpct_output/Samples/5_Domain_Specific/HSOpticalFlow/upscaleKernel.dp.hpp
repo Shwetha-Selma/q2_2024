@@ -37,10 +37,9 @@
 /// \param[in]  scale   scale factor (multiplier)
 /// \param[out] out     result
 ///////////////////////////////////////////////////////////////////////////////
-void UpscaleKernel(
-    int width, int height, int stride, float scale, float *out,
-    sycl::ext::oneapi::experimental::sampled_image_handle texCoarse,
-    const sycl::nd_item<3> &item_ct1) {
+void UpscaleKernel(int width, int height, int stride, float scale, float *out,
+                   dpct::image_accessor_ext<float, 2> texCoarse,
+                   const sycl::nd_item<3> &item_ct1) {
   const int ix = item_ct1.get_local_id(2) +
                  item_ct1.get_group(2) * item_ct1.get_local_range(2);
   const int iy = item_ct1.get_local_id(1) +
@@ -53,9 +52,7 @@ void UpscaleKernel(
 
   // exploit hardware interpolation
   // and scale interpolated vector to match next pyramid level resolution
-  out[ix + iy * stride] = sycl::ext::oneapi::experimental::sample_image<float>(
-                              texCoarse, sycl::float2(x, y)) *
-                          scale;
+  out[ix + iy * stride] = texCoarse.read(x, y) * scale;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -77,12 +74,15 @@ static void Upscale(const float *src, int width, int height, int stride,
   sycl::range<3> blocks(1, iDivUp(newHeight, threads[1]),
                         iDivUp(newWidth, threads[2]));
 
-  sycl::ext::oneapi::experimental::sampled_image_handle texCoarse;
+  dpct::image_wrapper_base_p texCoarse;
   dpct::image_data texRes;
   memset(&texRes, 0, sizeof(dpct::image_data));
 
   texRes.set_data_type(dpct::image_data_type::pitch);
   texRes.set_data_ptr((void *)src);
+  /*
+  DPCT1059:4: SYCL only supports 4-channel image format. Adjust the code.
+  */
   texRes.set_channel(dpct::image_channel::create<float>());
   texRes.set_x(width);
   texRes.set_y(height);
@@ -95,21 +95,30 @@ static void Upscale(const float *src, int width, int height, int stride,
                sycl::filtering_mode::linear,
                sycl::coordinate_normalization_mode::normalized);
   /*
-  DPCT1062:3: SYCL Image doesn't support normalized read mode.
+  DPCT1062:5: SYCL Image doesn't support normalized read mode.
   */
 
   checkCudaErrors(DPCT_CHECK_ERROR(
-      texCoarse = dpct::experimental::create_bindless_image(texRes, texDescr)));
+      texCoarse = dpct::create_image_wrapper(texRes, texDescr)));
 
   /*
-  DPCT1049:2: The work-group size passed to the SYCL kernel may exceed the
+  DPCT1049:3: The work-group size passed to the SYCL kernel may exceed the
   limit. To get the device limit, query info::device::max_work_group_size.
   Adjust the work-group size if needed.
   */
-  dpct::get_in_order_queue().parallel_for(
-      sycl::nd_range<3>(blocks * threads, threads),
-      [=](sycl::nd_item<3> item_ct1) {
-        UpscaleKernel(newWidth, newHeight, newStride, scale, out, texCoarse,
-                      item_ct1);
-      });
+  dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+    auto texCoarse_acc =
+        static_cast<dpct::image_wrapper<float, 2> *>(texCoarse)->get_access(
+            cgh);
+
+    auto texCoarse_smpl = texCoarse->get_sampler();
+
+    cgh.parallel_for(sycl::nd_range<3>(blocks * threads, threads),
+                     [=](sycl::nd_item<3> item_ct1) {
+                       UpscaleKernel(newWidth, newHeight, newStride, scale, out,
+                                     dpct::image_accessor_ext<float, 2>(
+                                         texCoarse_smpl, texCoarse_acc),
+                                     item_ct1);
+                     });
+  });
 }

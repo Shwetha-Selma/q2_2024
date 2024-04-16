@@ -38,10 +38,9 @@
 /// \param[in]  stride  image stride
 /// \param[out] out     result
 ///////////////////////////////////////////////////////////////////////////////
-void DownscaleKernel(
-    int width, int height, int stride, float *out,
-    sycl::ext::oneapi::experimental::sampled_image_handle texFine,
-    const sycl::nd_item<3> &item_ct1) {
+void DownscaleKernel(int width, int height, int stride, float *out,
+                     dpct::image_accessor_ext<float, 2> texFine,
+                     const sycl::nd_item<3> &item_ct1) {
   const int ix = item_ct1.get_local_id(2) +
                  item_ct1.get_group(2) * item_ct1.get_local_range(2);
   const int iy = item_ct1.get_local_id(1) +
@@ -58,14 +57,9 @@ void DownscaleKernel(
   float y = ((float)iy + 0.5f) * dy;
 
   out[ix + iy * stride] =
-      0.25f * (sycl::ext::oneapi::experimental::sample_image<float>(
-                   texFine, sycl::float2(x - dx * 0.25f, y)) +
-               sycl::ext::oneapi::experimental::sample_image<float>(
-                   texFine, sycl::float2(x + dx * 0.25f, y)) +
-               sycl::ext::oneapi::experimental::sample_image<float>(
-                   texFine, sycl::float2(x, y - dy * 0.25f)) +
-               sycl::ext::oneapi::experimental::sample_image<float>(
-                   texFine, sycl::float2(x, y + dy * 0.25f)));
+      0.25f *
+      (texFine.read(x - dx * 0.25f, y) + texFine.read(x + dx * 0.25f, y) +
+       texFine.read(x, y - dy * 0.25f) + texFine.read(x, y + dy * 0.25f));
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -83,12 +77,15 @@ static void Downscale(const float *src, int width, int height, int stride,
   sycl::range<3> blocks(1, iDivUp(newHeight, threads[1]),
                         iDivUp(newWidth, threads[2]));
 
-  sycl::ext::oneapi::experimental::sampled_image_handle texFine;
+  dpct::image_wrapper_base_p texFine;
   dpct::image_data texRes;
   memset(&texRes, 0, sizeof(dpct::image_data));
 
   texRes.set_data_type(dpct::image_data_type::pitch);
   texRes.set_data_ptr((void *)src);
+  /*
+  DPCT1059:1: SYCL only supports 4-channel image format. Adjust the code.
+  */
   texRes.set_channel(dpct::image_channel::create<float>());
   texRes.set_x(width);
   texRes.set_y(height);
@@ -101,20 +98,29 @@ static void Downscale(const float *src, int width, int height, int stride,
                sycl::filtering_mode::linear,
                sycl::coordinate_normalization_mode::normalized);
   /*
-  DPCT1062:1: SYCL Image doesn't support normalized read mode.
+  DPCT1062:2: SYCL Image doesn't support normalized read mode.
   */
 
-  checkCudaErrors(DPCT_CHECK_ERROR(
-      texFine = dpct::experimental::create_bindless_image(texRes, texDescr)));
+  checkCudaErrors(
+      DPCT_CHECK_ERROR(texFine = dpct::create_image_wrapper(texRes, texDescr)));
 
   /*
   DPCT1049:0: The work-group size passed to the SYCL kernel may exceed the
   limit. To get the device limit, query info::device::max_work_group_size.
   Adjust the work-group size if needed.
   */
-  dpct::get_in_order_queue().parallel_for(
-      sycl::nd_range<3>(blocks * threads, threads),
-      [=](sycl::nd_item<3> item_ct1) {
-        DownscaleKernel(newWidth, newHeight, newStride, out, texFine, item_ct1);
-      });
+  dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+    auto texFine_acc =
+        static_cast<dpct::image_wrapper<float, 2> *>(texFine)->get_access(cgh);
+
+    auto texFine_smpl = texFine->get_sampler();
+
+    cgh.parallel_for(sycl::nd_range<3>(blocks * threads, threads),
+                     [=](sycl::nd_item<3> item_ct1) {
+                       DownscaleKernel(newWidth, newHeight, newStride, out,
+                                       dpct::image_accessor_ext<float, 2>(
+                                           texFine_smpl, texFine_acc),
+                                       item_ct1);
+                     });
+  });
 }

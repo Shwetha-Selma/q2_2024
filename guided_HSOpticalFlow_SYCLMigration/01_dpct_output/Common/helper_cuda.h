@@ -54,7 +54,7 @@
 #ifdef __DPCT_HPP__
 static const char *_cudaGetErrorEnum(dpct::err0 error) {
   /*
-  DPCT1009:11: SYCL uses exceptions to report errors and does not use the error
+  DPCT1009:16: SYCL uses exceptions to report errors and does not use the error
   codes. The call was replaced by a placeholder string. You need to rewrite this
   code.
   */
@@ -602,7 +602,7 @@ void check(T result, char const *const func, const char *const file,
 inline void __getLastCudaError(const char *errorMessage, const char *file,
                                const int line) {
   /*
-  DPCT1010:12: SYCL uses exceptions to report errors and does not use the error
+  DPCT1010:17: SYCL uses exceptions to report errors and does not use the error
   codes. The call was replaced with 0. You need to rewrite this code.
   */
   dpct::err0 err = 0;
@@ -615,7 +615,7 @@ inline void __getLastCudaError(const char *errorMessage, const char *file,
 inline void __printLastCudaError(const char *errorMessage, const char *file,
                                  const int line) {
   /*
-  DPCT1010:14: SYCL uses exceptions to report errors and does not use the error
+  DPCT1010:19: SYCL uses exceptions to report errors and does not use the error
   codes. The call was replaced with 0. You need to rewrite this code.
   */
   dpct::err0 err = 0;
@@ -764,7 +764,7 @@ inline int gpuDeviceInit(int devID) {
 
   int computeMode = -1, major = 0, minor = 0;
   /*
-  DPCT1035:16: All SYCL devices can be used by the host to submit tasks. You may
+  DPCT1035:21: All SYCL devices can be used by the host to submit tasks. You may
   need to adjust this code.
   */
   checkCudaErrors(DPCT_CHECK_ERROR(computeMode = 1));
@@ -773,7 +773,7 @@ inline int gpuDeviceInit(int devID) {
   checkCudaErrors(DPCT_CHECK_ERROR(
       minor = dpct::dev_mgr::instance().get_device(devID).get_minor_version()));
   /*
-  DPCT1035:17: All SYCL devices can be used by the host to submit tasks. You may
+  DPCT1035:22: All SYCL devices can be used by the host to submit tasks. You may
   need to adjust this code.
   */
   if (computeMode == 0) {
@@ -789,7 +789,7 @@ inline int gpuDeviceInit(int devID) {
   }
 
   /*
-  DPCT1093:18: The "devID" device may be not the one intended for use. Adjust
+  DPCT1093:23: The "devID" device may be not the one intended for use. Adjust
   the selected device if needed.
   */
   checkCudaErrors(DPCT_CHECK_ERROR(dpct::select_device(devID)));
@@ -822,7 +822,7 @@ inline int gpuGetMaxGflopsDeviceId() try {
   while (current_device < device_count) {
     int computeMode = -1, major = 0, minor = 0;
     /*
-    DPCT1035:19: All SYCL devices can be used by the host to submit tasks. You
+    DPCT1035:24: All SYCL devices can be used by the host to submit tasks. You
     may need to adjust this code.
     */
     checkCudaErrors(DPCT_CHECK_ERROR(computeMode = 1));
@@ -836,7 +836,7 @@ inline int gpuGetMaxGflopsDeviceId() try {
     // If this GPU is not running on Compute Mode prohibited,
     // then we can add it to the list
     /*
-    DPCT1035:20: All SYCL devices can be used by the host to submit tasks. You
+    DPCT1035:25: All SYCL devices can be used by the host to submit tasks. You
     may need to adjust this code.
     */
     if (computeMode != 0) {
@@ -907,7 +907,7 @@ inline int findCudaDevice(int argc, const char **argv) {
     // Otherwise pick the device with highest Gflops/s
     devID = gpuGetMaxGflopsDeviceId();
     /*
-    DPCT1093:21: The "devID" device may be not the one intended for use. Adjust
+    DPCT1093:26: The "devID" device may be not the one intended for use. Adjust
     the selected device if needed.
     */
     checkCudaErrors(DPCT_CHECK_ERROR(dpct::select_device(devID)));
@@ -943,7 +943,7 @@ inline int findIntegratedGPU() {
   while (current_device < device_count) {
     int computeMode = -1, integrated = -1;
     /*
-    DPCT1035:22: All SYCL devices can be used by the host to submit tasks. You
+    DPCT1035:27: All SYCL devices can be used by the host to submit tasks. You
     may need to adjust this code.
     */
     checkCudaErrors(DPCT_CHECK_ERROR(computeMode = 1));
@@ -954,12 +954,12 @@ inline int findIntegratedGPU() {
     // If GPU is integrated and is not running on Compute Mode prohibited,
     // then cuda can map to GLES resource
     /*
-    DPCT1035:23: All SYCL devices can be used by the host to submit tasks. You
+    DPCT1035:28: All SYCL devices can be used by the host to submit tasks. You
     may need to adjust this code.
     */
     if (integrated && (computeMode != 0)) {
       /*
-      DPCT1093:24: The "current_device" device may be not the one intended for
+      DPCT1093:29: The "current_device" device may be not the one intended for
       use. Adjust the selected device if needed.
       */
       checkCudaErrors(DPCT_CHECK_ERROR(dpct::select_device(current_device)));

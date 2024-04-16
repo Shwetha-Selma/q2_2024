@@ -22,7 +22,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/downscaleKernel.cuh'
     Offset:          2075
     Length:          19
-    ReplacementText: 'sycl::ext::oneapi::experimental::sampled_image_handle'
+    ReplacementText: 'dpct::image_accessor_ext<float, 2>'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -94,7 +94,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/downscaleKernel.cuh'
     Offset:          2453
     Length:          40
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texFine, sycl::float2(x - dx * 0.25f, y))'
+    ReplacementText: 'texFine.read(x - dx * 0.25f, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -103,7 +103,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/downscaleKernel.cuh'
     Offset:          2531
     Length:          40
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texFine, sycl::float2(x + dx * 0.25f, y))'
+    ReplacementText: 'texFine.read(x + dx * 0.25f, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -112,7 +112,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/downscaleKernel.cuh'
     Offset:          2609
     Length:          40
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texFine, sycl::float2(x, y - dy * 0.25f))'
+    ReplacementText: 'texFine.read(x, y - dy * 0.25f)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -121,7 +121,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/downscaleKernel.cuh'
     Offset:          2687
     Length:          40
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texFine, sycl::float2(x, y + dy * 0.25f))'
+    ReplacementText: 'texFine.read(x, y + dy * 0.25f)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -166,7 +166,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/downscaleKernel.cuh'
     Offset:          3363
     Length:          19
-    ReplacementText: 'sycl::ext::oneapi::experimental::sampled_image_handle'
+    ReplacementText: 'dpct::image_wrapper_base_p'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -239,6 +239,15 @@ Replacements:
     Offset:          3533
     Length:          20
     ReplacementText: 'set_data_ptr((void *)src)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/downscaleKernel.cuh'
+    Offset:          3557
+    Length:          0
+    ReplacementText: "/*\n  DPCT1059:1: SYCL only supports 4-channel image format. Adjust the code.\n  */\n  "
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -481,7 +490,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/downscaleKernel.cuh'
     Offset:          4012
     Length:          47
-    ReplacementText: "  /*\n  DPCT1062:1: SYCL Image doesn't support normalized read mode.\n  */\n"
+    ReplacementText: "  /*\n  DPCT1062:2: SYCL Image doesn't support normalized read mode.\n  */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -490,7 +499,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/downscaleKernel.cuh'
     Offset:          4078
     Length:          59
-    ReplacementText: 'DPCT_CHECK_ERROR(texFine = dpct::experimental::create_bindless_image(texRes, texDescr))'
+    ReplacementText: 'DPCT_CHECK_ERROR(texFine = dpct::create_image_wrapper(texRes, texDescr))'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -508,7 +517,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/downscaleKernel.cuh'
     Offset:          4143
     Length:          121
-    ReplacementText: "dpct::get_in_order_queue().parallel_for(\n    sycl::nd_range<3>(blocks * threads, threads), \n    [=](sycl::nd_item<3> item_ct1) {\n      DownscaleKernel(newWidth, newHeight, newStride, out, texFine, item_ct1);\n    });"
+    ReplacementText: "dpct::get_in_order_queue().submit(\n    [&](sycl::handler &cgh) {\n      auto texFine_acc = static_cast<dpct::image_wrapper<float, 2> *>(texFine)->get_access(cgh);\n\n      auto texFine_smpl = texFine->get_sampler();\n\n      cgh.parallel_for(\n        sycl::nd_range<3>(blocks * threads, threads), \n        [=](sycl::nd_item<3> item_ct1) {\n          DownscaleKernel(newWidth, newHeight, newStride, out, dpct::image_accessor_ext<float, 2>(texFine_smpl, texFine_acc), item_ct1);\n        });\n    });"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -557,8 +566,8 @@ OptionMap:
     Value:           'false'
     Specified:       false
   ExperimentalFlag:
-    Value:           '1024'
-    Specified:       true
+    Value:           '0'
+    Specified:       false
   ExplicitNamespace:
     Value:           '20'
     Specified:       false

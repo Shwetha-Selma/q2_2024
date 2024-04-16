@@ -22,7 +22,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/upscaleKernel.cuh'
     Offset:          2125
     Length:          19
-    ReplacementText: 'sycl::ext::oneapi::experimental::sampled_image_handle'
+    ReplacementText: 'dpct::image_accessor_ext<float, 2>'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -94,7 +94,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/upscaleKernel.cuh'
     Offset:          2547
     Length:          29
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texCoarse, sycl::float2(x, y))'
+    ReplacementText: 'texCoarse.read(x, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -139,7 +139,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/upscaleKernel.cuh'
     Offset:          3554
     Length:          19
-    ReplacementText: 'sycl::ext::oneapi::experimental::sampled_image_handle'
+    ReplacementText: 'dpct::image_wrapper_base_p'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -212,6 +212,15 @@ Replacements:
     Offset:          3726
     Length:          20
     ReplacementText: 'set_data_ptr((void *)src)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/upscaleKernel.cuh'
+    Offset:          3750
+    Length:          0
+    ReplacementText: "/*\n  DPCT1059:4: SYCL only supports 4-channel image format. Adjust the code.\n  */\n  "
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -454,7 +463,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/upscaleKernel.cuh'
     Offset:          4205
     Length:          47
-    ReplacementText: "  /*\n  DPCT1062:3: SYCL Image doesn't support normalized read mode.\n  */\n"
+    ReplacementText: "  /*\n  DPCT1062:5: SYCL Image doesn't support normalized read mode.\n  */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -463,7 +472,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/upscaleKernel.cuh'
     Offset:          4278
     Length:          61
-    ReplacementText: 'DPCT_CHECK_ERROR(texCoarse = dpct::experimental::create_bindless_image(texRes, texDescr))'
+    ReplacementText: 'DPCT_CHECK_ERROR(texCoarse = dpct::create_image_wrapper(texRes, texDescr))'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -472,7 +481,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/upscaleKernel.cuh'
     Offset:          4343
     Length:          0
-    ReplacementText: "  /*\n  DPCT1049:2: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ReplacementText: "  /*\n  DPCT1049:3: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -481,7 +490,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/upscaleKernel.cuh'
     Offset:          4345
     Length:          126
-    ReplacementText: "dpct::get_in_order_queue().parallel_for(\n    sycl::nd_range<3>(blocks * threads, threads), \n    [=](sycl::nd_item<3> item_ct1) {\n      UpscaleKernel(newWidth, newHeight, newStride, scale, out, texCoarse, item_ct1);\n    });"
+    ReplacementText: "dpct::get_in_order_queue().submit(\n    [&](sycl::handler &cgh) {\n      auto texCoarse_acc = static_cast<dpct::image_wrapper<float, 2> *>(texCoarse)->get_access(cgh);\n\n      auto texCoarse_smpl = texCoarse->get_sampler();\n\n      cgh.parallel_for(\n        sycl::nd_range<3>(blocks * threads, threads), \n        [=](sycl::nd_item<3> item_ct1) {\n          UpscaleKernel(newWidth, newHeight, newStride, scale, out, dpct::image_accessor_ext<float, 2>(texCoarse_smpl, texCoarse_acc), item_ct1);\n        });\n    });"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -530,8 +539,8 @@ OptionMap:
     Value:           'false'
     Specified:       false
   ExperimentalFlag:
-    Value:           '1024'
-    Specified:       true
+    Value:           '0'
+    Specified:       false
   ExplicitNamespace:
     Value:           '20'
     Specified:       false

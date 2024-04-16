@@ -22,7 +22,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          2252
     Length:          19
-    ReplacementText: 'sycl::ext::oneapi::experimental::sampled_image_handle'
+    ReplacementText: 'dpct::image_accessor_ext<float, 2>'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -31,7 +31,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          2324
     Length:          19
-    ReplacementText: 'sycl::ext::oneapi::experimental::sampled_image_handle'
+    ReplacementText: 'dpct::image_accessor_ext<float, 2>'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -103,7 +103,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          2737
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texSource, sycl::float2(x - 2.0f * dx, y))'
+    ReplacementText: 'texSource.read(x - 2.0f * dx, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -112,7 +112,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          2788
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texSource, sycl::float2(x - 1.0f * dx, y))'
+    ReplacementText: 'texSource.read(x - 1.0f * dx, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -121,7 +121,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          2846
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texSource, sycl::float2(x + 1.0f * dx, y))'
+    ReplacementText: 'texSource.read(x + 1.0f * dx, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -130,7 +130,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          2904
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texSource, sycl::float2(x + 2.0f * dx, y))'
+    ReplacementText: 'texSource.read(x + 2.0f * dx, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -139,7 +139,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          2970
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texTarget, sycl::float2(x - 2.0f * dx, y))'
+    ReplacementText: 'texTarget.read(x - 2.0f * dx, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -148,7 +148,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3021
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texTarget, sycl::float2(x - 1.0f * dx, y))'
+    ReplacementText: 'texTarget.read(x - 1.0f * dx, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -157,7 +157,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3079
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texTarget, sycl::float2(x + 1.0f * dx, y))'
+    ReplacementText: 'texTarget.read(x + 1.0f * dx, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -166,7 +166,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3137
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texTarget, sycl::float2(x + 2.0f * dx, y))'
+    ReplacementText: 'texTarget.read(x + 2.0f * dx, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -175,7 +175,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3257
     Length:          29
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texTarget, sycl::float2(x, y))'
+    ReplacementText: 'texTarget.read(x, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -184,7 +184,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3289
     Length:          29
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texSource, sycl::float2(x, y))'
+    ReplacementText: 'texSource.read(x, y)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -193,7 +193,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3346
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texSource, sycl::float2(x, y - 2.0f * dy))'
+    ReplacementText: 'texSource.read(x, y - 2.0f * dy)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -202,7 +202,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3397
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texSource, sycl::float2(x, y - 1.0f * dy))'
+    ReplacementText: 'texSource.read(x, y - 1.0f * dy)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -211,7 +211,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3455
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texSource, sycl::float2(x, y + 1.0f * dy))'
+    ReplacementText: 'texSource.read(x, y + 1.0f * dy)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -220,7 +220,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3513
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texSource, sycl::float2(x, y + 2.0f * dy))'
+    ReplacementText: 'texSource.read(x, y + 2.0f * dy)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -229,7 +229,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3579
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texTarget, sycl::float2(x, y - 2.0f * dy))'
+    ReplacementText: 'texTarget.read(x, y - 2.0f * dy)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -238,7 +238,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3630
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texTarget, sycl::float2(x, y - 1.0f * dy))'
+    ReplacementText: 'texTarget.read(x, y - 1.0f * dy)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -247,7 +247,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3688
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texTarget, sycl::float2(x, y + 1.0f * dy))'
+    ReplacementText: 'texTarget.read(x, y + 1.0f * dy)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -256,7 +256,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          3746
     Length:          41
-    ReplacementText: 'sycl::ext::oneapi::experimental::sample_image<float>(texTarget, sycl::float2(x, y + 2.0f * dy))'
+    ReplacementText: 'texTarget.read(x, y + 2.0f * dy)'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -301,7 +301,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          4547
     Length:          19
-    ReplacementText: 'sycl::ext::oneapi::experimental::sampled_image_handle'
+    ReplacementText: 'dpct::image_wrapper_base_p'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -374,6 +374,15 @@ Replacements:
     Offset:          4730
     Length:          19
     ReplacementText: 'set_data_ptr((void *)I0)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
+    Offset:          4753
+    Length:          0
+    ReplacementText: "/*\n  DPCT1059:10: SYCL only supports 4-channel image format. Adjust the code.\n  */\n  "
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -616,7 +625,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          5194
     Length:          47
-    ReplacementText: "  /*\n  DPCT1062:7: SYCL Image doesn't support normalized read mode.\n  */\n"
+    ReplacementText: "  /*\n  DPCT1062:11: SYCL Image doesn't support normalized read mode.\n  */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -625,7 +634,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          5267
     Length:          61
-    ReplacementText: 'DPCT_CHECK_ERROR(texSource = dpct::experimental::create_bindless_image(texRes, texDescr))'
+    ReplacementText: 'DPCT_CHECK_ERROR(texSource = dpct::create_image_wrapper(texRes, texDescr))'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -689,6 +698,15 @@ Replacements:
     Offset:          5444
     Length:          19
     ReplacementText: 'set_data_ptr((void *)I1)'
+    ConstantFlag:    ''
+    ConstantOffset:  0
+    InitStr:         ''
+    NewHostVarName:  ''
+    BlockLevelFormatFlag: false
+  - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
+    Offset:          5467
+    Length:          0
+    ReplacementText: "/*\n  DPCT1059:12: SYCL only supports 4-channel image format. Adjust the code.\n  */\n  "
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -877,7 +895,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          5670
     Length:          61
-    ReplacementText: 'DPCT_CHECK_ERROR(texTarget = dpct::experimental::create_bindless_image(texRes, texDescr))'
+    ReplacementText: 'DPCT_CHECK_ERROR(texTarget = dpct::create_image_wrapper(texRes, texDescr))'
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -886,7 +904,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          5735
     Length:          0
-    ReplacementText: "  /*\n  DPCT1049:6: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ReplacementText: "  /*\n  DPCT1049:9: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -895,7 +913,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/derivativesKernel.cuh'
     Offset:          5737
     Length:          136
-    ReplacementText: "dpct::get_in_order_queue().parallel_for(\n    sycl::nd_range<3>(blocks * threads, threads), \n    [=](sycl::nd_item<3> item_ct1) {\n      ComputeDerivativesKernel(w, h, s, Ix, Iy, Iz, texSource, texTarget, item_ct1);\n    });"
+    ReplacementText: "dpct::get_in_order_queue().submit(\n    [&](sycl::handler &cgh) {\n      auto texSource_acc = static_cast<dpct::image_wrapper<float, 2> *>(texSource)->get_access(cgh);\n      auto texTarget_acc = static_cast<dpct::image_wrapper<float, 2> *>(texTarget)->get_access(cgh);\n\n      auto texSource_smpl = texSource->get_sampler();\n      auto texTarget_smpl = texTarget->get_sampler();\n\n      cgh.parallel_for(\n        sycl::nd_range<3>(blocks * threads, threads), \n        [=](sycl::nd_item<3> item_ct1) {\n          ComputeDerivativesKernel(w, h, s, Ix, Iy, Iz, dpct::image_accessor_ext<float, 2>(texSource_smpl, texSource_acc), dpct::image_accessor_ext<float, 2>(texTarget_smpl, texTarget_acc), item_ct1);\n        });\n    });"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -944,8 +962,8 @@ OptionMap:
     Value:           'false'
     Specified:       false
   ExperimentalFlag:
-    Value:           '1024'
-    Specified:       true
+    Value:           '0'
+    Specified:       false
   ExplicitNamespace:
     Value:           '20'
     Specified:       false

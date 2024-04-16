@@ -94,7 +94,7 @@ Replacements:
   - FilePath:        '/home/tcs2/workspace_shwetha/2024/q2/cuda-samples/Samples/5_Domain_Specific/HSOpticalFlow/addKernel.cuh'
     Offset:          2637
     Length:          0
-    ReplacementText: "  /*\n  DPCT1049:10: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
+    ReplacementText: "  /*\n  DPCT1049:15: The work-group size passed to the SYCL kernel may exceed the limit. To get the device limit, query info::device::max_work_group_size. Adjust the work-group size if needed.\n  */\n"
     ConstantFlag:    ''
     ConstantOffset:  0
     InitStr:         ''
@@ -152,8 +152,8 @@ OptionMap:
     Value:           'false'
     Specified:       false
   ExperimentalFlag:
-    Value:           '1024'
-    Specified:       true
+    Value:           '0'
+    Specified:       false
   ExplicitNamespace:
     Value:           '20'
     Specified:       false

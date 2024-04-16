@@ -51,7 +51,7 @@ inline int floorPow2(int n) {
  
   sycl::frexp(
       (float)n,
-      sycl::address_space_cast<sycl::access::address_space::generic_space,
+      sycl::address_space_cast<sycl::access::address_space::private_space,
                                sycl::access::decorated::yes>(&exp));
   return (1 << (exp - 1));
 }
@@ -70,7 +70,7 @@ inline int ceilPow2(int n) {
 
   sycl::frexp(
       (float)n,
-      sycl::address_space_cast<sycl::access::address_space::generic_space,
+      sycl::address_space_cast<sycl::access::address_space::private_space,
                                sycl::access::decorated::yes>(&exp));
   return (1 << exp);
 }
