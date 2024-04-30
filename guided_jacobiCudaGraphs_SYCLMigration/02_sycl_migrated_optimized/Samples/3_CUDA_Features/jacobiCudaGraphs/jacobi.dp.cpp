@@ -96,15 +96,16 @@ static void JacobiMethod(const float *A, const double *b,
       rowThreadSum += (A[i * N_ROWS + j] * x_shared[j]);
     }
 
-    for (int offset = tile32.get_local_linear_range() / 2;
-         offset > 0; offset /= 2) {
-      rowThreadSum += sycl::shift_group_left(tile32,
-                                             rowThreadSum, offset);
-    }
+    rowThreadSum =
+        sycl::reduce_over_group(tile32, rowThreadSum, sycl::plus<double>());
 
+    
     if (tile32.get_local_linear_id() == 0) {
-      dpct::atomic_fetch_add<sycl::access::address_space::generic_space>(
-          &b_shared[i % (ROWS_PER_CTA + 1)], -rowThreadSum);
+      sycl::atomic_ref<double, sycl::memory_order::relaxed,
+                       sycl::memory_scope::device,
+                       sycl::access::address_space::generic_space>
+          at_h_sum{b_shared[i % (ROWS_PER_CTA + 1)]};
+      at_h_sum -= rowThreadSum;
     }
   }
 
@@ -133,9 +134,12 @@ static void JacobiMethod(const float *A, const double *b,
                                              offset, 8);
     }
 
-    if (tile8.get_local_linear_id() == 0) {
-      dpct::atomic_fetch_add<sycl::access::address_space::generic_space>(
-          sum, temp_sum);
+    if (tile32.get_local_linear_id() == 0) {
+      sycl::atomic_ref<double, sycl::memory_order::relaxed,
+                       sycl::memory_scope::device,
+                       sycl::access::address_space::generic_space>
+          at_sum{*sum};
+      at_sum += temp_sum;
     }
   }
 }
@@ -159,10 +163,7 @@ static void finalError(double *x, double *g_sum,
 
   sycl::sub_group tile32 = item_ct1.get_sub_group();
 
-  for (int offset = tile32.get_local_linear_range() / 2;
-       offset > 0; offset /= 2) {
-    sum += sycl::shift_group_left(tile32, sum, offset);
-  }
+  sum = sycl::reduce_over_group(tile32, sum, sycl::plus<double>());
 
   if (tile32.get_local_linear_id() == 0) {
     warpSum[item_ct1.get_local_id(2) /
@@ -179,14 +180,14 @@ static void finalError(double *x, double *g_sum,
   }
 
   if (item_ct1.get_local_id(2) < 32) {
-    for (int offset = tile32.get_local_linear_range() / 2;
-         offset > 0; offset /= 2) {
-      blockSum +=
-          sycl::shift_group_left(tile32, blockSum, offset);
-    }
+    
+    blockSum = sycl::reduce_over_group(tile32, blockSum, sycl::plus<double>());
     if (tile32.get_local_linear_id() == 0) {
-      dpct::atomic_fetch_add<sycl::access::address_space::generic_space>(
-          g_sum, blockSum);
+      sycl::atomic_ref<double, sycl::memory_order::relaxed,
+                       sycl::memory_scope::device,
+                       sycl::access::address_space::generic_space>
+          at_g_sum{*g_sum};
+      at_g_sum += blockSum;
     }
   }
 }

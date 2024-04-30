@@ -101,7 +101,7 @@ static void JacobiMethod(const float *A, const double *b,
       rowThreadSum += sycl::shift_group_left(tile32,
                                              rowThreadSum, offset);
     }
-
+    
     if (tile32.get_local_linear_id() == 0) {
       dpct::atomic_fetch_add<sycl::access::address_space::generic_space>(
           &b_shared[i % (ROWS_PER_CTA + 1)], -rowThreadSum);
@@ -184,6 +184,7 @@ static void finalError(double *x, double *g_sum,
       blockSum +=
           sycl::shift_group_left(tile32, blockSum, offset);
     }
+    
     if (tile32.get_local_linear_id() == 0) {
       dpct::atomic_fetch_add<sycl::access::address_space::generic_space>(
           g_sum, blockSum);
