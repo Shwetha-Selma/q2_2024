@@ -166,7 +166,7 @@ int main(int argc, char **argv) {
   printf("%s Starting...\n\n", sSDKsample);
 
   // pick GPU
-  findCudaDevice(argc, (const char **)argv);
+//  findCudaDevice(argc, (const char **)argv);
 
   // find images
   const char *const sourceFrameName = "frame10.ppm";

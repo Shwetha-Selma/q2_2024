@@ -92,7 +92,9 @@ void JacobiIteration(const float *du0, const float *dv0,
     DPCT1064:25: Migrated min call is used in a macro/template definition and
     may not be valid for all macro/template uses. Adjust the code.
     */
-    x = dpct::min((unsigned int)(bsx + item_ct1.get_local_id(2)), w - 1);
+    int var1 = (unsigned int)(bsx + item_ct1.get_local_id(2));
+    //x = dpct::min((unsigned int)(bsx + item_ct1.get_local_id(2)), w - 1);
+    x = sycl::min(var1, w - 1);
     // row just below the tile
     y = sycl::max(bsy - 1, 0);
     gmPos = y * s + x;
@@ -121,7 +123,8 @@ void JacobiIteration(const float *du0, const float *dv0,
     DPCT1064:26: Migrated min call is used in a macro/template definition and
     may not be valid for all macro/template uses. Adjust the code.
     */
-    y = dpct::min((unsigned int)(bsy + item_ct1.get_local_id(2)), h - 1);
+    int var2 = (unsigned int)(bsy + item_ct1.get_local_id(2));
+    y = dpct::min(var2, h - 1);
     // column to the left
     x = sycl::max(bsx - 1, 0);
     smPos = bx + 2 + item_ct1.get_local_id(2) * (bx + 2);
