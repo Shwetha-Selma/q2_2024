@@ -75,13 +75,13 @@ void JacobiMethodCPU(float *A, double *b, float conv_threshold, int max_iter,
 
 int main(int argc, char **argv) {
   if (checkCmdLineFlag(argc, (const char **)argv, "help")) {
-    printf("Command line: jacobiCudaGraphs [-option]\n");
+    printf("Command line: jacobiGraphs [-option]\n");
     printf("Valid options:\n");
     printf(
         "-gpumethod=<0 or 1>  : 0 - [Default] "
         "JacobiMethodGpuCudaGraphExecKernelSetParams\n");
-    printf("                       : 1 - JacobiMethodGpu - Non CUDA Graph\n");
-    printf("-device=device_num     : cuda device id");
+    printf("                       : 1 - JacobiMethodGpu - Non Graph\n");
+    printf("-device=device_num     :  device id");
     printf("-help         : Output a help message\n");
     exit(EXIT_SUCCESS);
   }
@@ -174,7 +174,7 @@ int main(int argc, char **argv) {
   }
 
   sdkStopTimer(&timerGpu);
-  printf("GPU Processing time: %f (ms)\n", sdkGetTimerValue(&timerGpu));
+  printf("Device Processing time: %f (ms)\n", sdkGetTimerValue(&timerGpu));
 
   DPCT_CHECK_ERROR(sycl::free(d_b, q));
   DPCT_CHECK_ERROR(sycl::free(d_A, q));
