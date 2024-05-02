@@ -161,7 +161,6 @@ void init_input(float *a, size_t size) {
 void myHostNodeCallback(void *data) {
   // Check status of GPU after stream operations are done
   callBackData_t *tmp = (callBackData_t *)(data);
-  // checkCudaErrors(tmp->status);
 
   double *result = (double *)(tmp->data);
   char *function = (char *)(tmp->fn_name);
