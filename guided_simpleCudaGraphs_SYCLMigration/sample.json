@@ -15,6 +15,7 @@
                           "mkdir build",
                           "cd build",
                           "cmake ..",
+                          "cmake -D INTEL_MAX_GPU=1 ..",
                           "make",
                           "make run_op1",
                           "make run_op2"
