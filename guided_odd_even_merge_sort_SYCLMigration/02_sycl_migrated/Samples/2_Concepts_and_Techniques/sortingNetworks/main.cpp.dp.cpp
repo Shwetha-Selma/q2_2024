@@ -1,3 +1,9 @@
+//=========================================================
+// Modifications Copyright © 2022 Intel Corporation
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//=========================================================
+
 /* Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,14 +58,11 @@
 // Test driver
 ////////////////////////////////////////////////////////////////////////////////
 int main(int argc, char **argv) /*try*/ {
-  dpct::err0 error;
+  
   printf("%s Starting...\n\n", argv[0]);
-
-  // sycl::property_list props{sycl::ext::oneapi::property::queue::discard_events{},
-  //                           sycl::property::queue::in_order{}};
-  // sycl::queue q( props );
-   sycl::queue q{sycl::default_selector_v, sycl::property::queue::in_order()};
-   std::cout << "\nRunning on " << q.get_device().get_info<sycl::info::device::name>()
+    
+  sycl::queue q{sycl::default_selector_v, sycl::property::queue::in_order()};
+  std::cout << "\nRunning on " << q.get_device().get_info<sycl::info::device::name>()
             << "\n";
 
   uint *h_InputKey, *h_InputVal, *h_OutputKeyGPU, *h_OutputValGPU;
@@ -84,27 +87,21 @@ int main(int argc, char **argv) /*try*/ {
     h_InputVal[i] = i;
   }
 
-  printf("Allocating and initializing CUDA arrays...\n\n");
-  error = DPCT_CHECK_ERROR(
+  printf("Allocating and initializing arrays...\n\n");
+  DPCT_CHECK_ERROR(
       d_InputKey = sycl::malloc_device<uint>(N, q));
-  checkCudaErrors(error);
-  error = DPCT_CHECK_ERROR(
+  DPCT_CHECK_ERROR(
       d_InputVal = sycl::malloc_device<uint>(N, q));
-  checkCudaErrors(error);
-  error = DPCT_CHECK_ERROR(
+  DPCT_CHECK_ERROR(
       d_OutputKey = sycl::malloc_device<uint>(N, q));
-  checkCudaErrors(error);
-  error = DPCT_CHECK_ERROR(
+  DPCT_CHECK_ERROR(
       d_OutputVal = sycl::malloc_device<uint>(N, q));
-  checkCudaErrors(error);
-  error = DPCT_CHECK_ERROR(q
+  DPCT_CHECK_ERROR(q
                                .memcpy(d_InputKey, h_InputKey, N * sizeof(uint))
                                .wait());
-  checkCudaErrors(error);
-  error = DPCT_CHECK_ERROR(q
+  DPCT_CHECK_ERROR(q
                                .memcpy(d_InputVal, h_InputVal, N * sizeof(uint))
                                .wait());
-  checkCudaErrors(error);
 
   int flag = 1;
   printf("Running GPU bitonic sort (%u identical iterations)...\n\n",
@@ -113,9 +110,7 @@ int main(int argc, char **argv) /*try*/ {
   for (uint arrayLength = 64; arrayLength <= N; arrayLength *= 2) {
     printf("Testing array length %u (%u arrays per batch)...\n", arrayLength,
            N / arrayLength);
-    error =
-        DPCT_CHECK_ERROR(dpct::get_current_device().queues_wait_and_throw());
-    checkCudaErrors(error);
+    DPCT_CHECK_ERROR(dpct::get_current_device().queues_wait_and_throw());
 
     sdkResetTimer(&hTimer);
     sdkStartTimer(&hTimer);
@@ -125,9 +120,7 @@ int main(int argc, char **argv) /*try*/ {
       threadCount = oddEvenMergeSort(d_OutputKey, d_OutputVal, d_InputKey,
                                 d_InputVal, N / arrayLength, arrayLength, DIR, q);
 
-    error =
-        DPCT_CHECK_ERROR(dpct::get_current_device().queues_wait_and_throw());
-    checkCudaErrors(error);
+    DPCT_CHECK_ERROR(dpct::get_current_device().queues_wait_and_throw());
 
     sdkStopTimer(&hTimer);
     printf("Average time: %f ms\n\n",
@@ -144,16 +137,14 @@ int main(int argc, char **argv) /*try*/ {
 
     printf("\nValidating the results...\n");
     printf("...reading back GPU results\n");
-    error = DPCT_CHECK_ERROR(
+    DPCT_CHECK_ERROR(
         q
             .memcpy(h_OutputKeyGPU, d_OutputKey, N * sizeof(uint))
             .wait());
-    checkCudaErrors(error);
-    error = DPCT_CHECK_ERROR(
+    DPCT_CHECK_ERROR(
         q
             .memcpy(h_OutputValGPU, d_OutputVal, N * sizeof(uint))
             .wait());
-    checkCudaErrors(error);
 
     int keysFlag =
         validateSortedKeys(h_OutputKeyGPU, h_InputKey, N / arrayLength,
@@ -178,8 +169,3 @@ int main(int argc, char **argv) /*try*/ {
 
   exit(flag ? EXIT_SUCCESS : EXIT_FAILURE);
 }
-/*catch (sycl::exception const &exc) {
-  std::cerr << exc.what() << "Exception caught at file:" << __FILE__
-            << ", line:" << __LINE__ << std::endl;
-  std::exit(1);
-}*/
