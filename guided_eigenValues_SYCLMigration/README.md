@@ -12,11 +12,12 @@ The `EigenValues` sample demonstrates a parallel implementation of a bisection a
 
 ## Purpose
 
-The `EigenValues` sample is a 1D decomposition for Haar wavelet and signals. The parallel implementation demonstrates the use of concepts, such as
+The `EigenValues` sample is Computation of eigenvalues of symmetric, tridiagonal matrix using bisection. The parallel implementation demonstrates the use of concepts, such as
 
 - Cooperative groups
 - Shared Memory
-
+- Global memory
+  
 > **Note**: The sample used the open-source SYCLomatic tool that assists developers in porting CUDA code to SYCL code. To finish the process, you must complete the rest of the coding manually and then tune to the desired level of performance for the target architecture. You can also use the Intel® DPC++ Compatibility Tool available to augment the Base Toolkit.
 
 This sample contains two versions of the code in the following folders:
@@ -40,18 +41,17 @@ How to run SYCL™ applications on NVIDIA® GPUs, refer to
 
 ## Key Implementation Details
 
-The basics of Wavelet transform is to decompose a signal into approximation (a) and detail (d) coefficients where the detail tends to be small or zero which allows/simplifies compression. The first step is to get the number of decompositions necessary to perform a full decomposition. i.e., getlevels function. The resulting signal consisting of the approximation coefficients is computed at the host and then processed in a subsequent step on the device kernel `EigenValues`.
-dwtHaar1D kernel computes partial wavelet decomposition on the GPU using a Haar basis. For each thread block the full decomposition is computed and then these results have to be combined.
+This sample demonstrates an efficient algorithm to determine the eigenvalues of a symmetric and tridiagonal real matrix using CUDA. A bisection strategy and an efficient technique to determine the number of eigenvalues contained in an interval form the foundation of the algorithm. The Gerschgorin interval that contains all eigenvalues of a matrix is the starting point of the computations and recursive bisection yields a tree of intervals whose leaf nodes contain an approximation of the eigenvalues. 
+
+Two different versions of the algorithm have been implemented, one for small matrices with up to 512X512 elements, and one for arbitrary large matrices. Particularly important for the efficiency of the implementation is the memory organization. Memory consumption and code divergence are minimized by frequent compaction operations. 
+For large matrices the implementation requires two steps. Post-processing the result of the first step minimizes data transfer to the host and improves the efficiency of the second step.
 
 >**Note**: Refer to [Workflow for a CUDA* to SYCL* Migration](https://www.intel.com/content/www/us/en/developer/tools/oneapi/training/cuda-sycl-migration-workflow.html) for general information about the migration workflow.
 
 ## CUDA source code evaluation
-The `dwtHaar1D` CUDA sample implementation consists of dividing Large signals into sub-signals with 512 elements and the wavelet transform for these is computed with one block over 10 decomposition levels. 
-The resulting signal consisting of the approximation coefficients at level X is then processed in a subsequent step on the device. 
-This requires interblock synchronization which is only possible on the host side. Detail coefficients that have been computed are not further referenced during the decomposition so that they can be stored directly in their final position in global memory. 
-The transform and its storing scheme preserve locality in the coefficients so that these writes are coalesced.
-Approximation coefficients are stored in shared memory because they are needed to compute the subsequent decomposition step.
-The topmost approximation coefficient for a sub-signal processed by one block is stored in a special global memory location to simplify the processing after the interblock synchronization.
+
+The `dwtHaar1D` CUDA sample implementation in order to avoid uncoalesced data access, A better strategy is adopted to load chunks of matrix data into shared memory and then compute some iterations of Algorithm using this data. Coalescing the reads from global memory is then straightforward and memory latency can be hidden by using not only the active threads to load the data from global memory but all threads in the current thread block and using a sufficiently large number of threads per block. Loading chunks of data requires temporary storage of the information in shared memory.
+For more information on CUDA code implemetation refer [here](https://github.com/NVIDIA/cuda-samples/blob/master/Samples/2_Concepts_and_Techniques/eigenvalues/doc/eigenvalues.pdf).
 
 > **Note**: For more information on how to use the Syclomatic Tool, visit [Migrate from CUDA* to C++ with SYCL*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/training/migrate-from-cuda-to-cpp-with-sycl.html#gs.vmhplg).
 
