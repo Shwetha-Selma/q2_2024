@@ -50,7 +50,7 @@ For large matrices, the implementation requires two steps. Post-processing the r
 
 ## CUDA source code evaluation
 
-In the `dwtHaar1D` CUDA sample implementation in order to avoid uncoalesced data access, A better strategy is adopted to load chunks of matrix data into shared memory and then compute some iterations of the Algorithm using this data. Coalescing the reads from global memory is then straightforward and memory latency can be hidden by using not only the active threads to load the data from global memory but all threads in the current thread block and using a sufficiently large number of threads per block. Loading chunks of data requires temporary storage of the information in shared memory.
+In the `eigenValues` CUDA sample implementation in order to avoid uncoalesced data access, A better strategy is adopted to load chunks of matrix data into shared memory and then compute some iterations of the Algorithm using this data. Coalescing the reads from global memory is then straightforward and memory latency can be hidden by using not only the active threads to load the data from global memory but all threads in the current thread block and using a sufficiently large number of threads per block. Loading chunks of data requires temporary storage of the information in shared memory.
 For more information on CUDA code implementation refer [here](https://github.com/NVIDIA/cuda-samples/blob/master/Samples/2_Concepts_and_Techniques/eigenvalues/doc/eigenvalues.pdf).
 
 > **Note**: For more information on how to use the Syclomatic Tool, visit [Migrate from CUDA* to C++ with SYCL*](https://www.intel.com/content/www/us/en/developer/tools/oneapi/training/migrate-from-cuda-to-cpp-with-sycl.html#gs.vmhplg).
