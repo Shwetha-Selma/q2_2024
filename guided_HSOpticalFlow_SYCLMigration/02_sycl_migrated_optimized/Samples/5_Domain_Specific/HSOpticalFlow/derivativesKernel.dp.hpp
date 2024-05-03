@@ -48,8 +48,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 void ComputeDerivativesKernel(int width, int height, int stride, float *Ix,
                               float *Iy, float *Iz,
-                              dpct::image_accessor_ext<float, 2> texSource,
-                              dpct::image_accessor_ext<float, 2> texTarget,
+                              sycl::accessor<sycl::float4, 2, sycl::access::mode::read,
+             sycl::access::target::image>
+        texSource,
+    sycl::accessor<sycl::float4, 2, sycl::access::mode::read,
+             sycl::access::target::image>
+        texTarget,
+    sycl::sampler texDesc,
                               const sycl::nd_item<3> &item_ct1) {
   const int ix = item_ct1.get_local_id(2) +
                  item_ct1.get_group(2) * item_ct1.get_local_range(2);
@@ -60,42 +65,48 @@ void ComputeDerivativesKernel(int width, int height, int stride, float *Ix,
 
   if (ix >= width || iy >= height) return;
 
-  float dx = 1.0f / (float)width;
-  float dy = 1.0f / (float)height;
-
-  float x = ((float)ix + 0.5f) * dx;
-  float y = ((float)iy + 0.5f) * dy;
-
   float t0, t1;
-  // x derivative
-  t0 = texSource.read(x - 2.0f * dx, y);
-  t0 -= texSource.read(x - 1.0f * dx, y) * 8.0f;
-  t0 += texSource.read(x + 1.0f * dx, y) * 8.0f;
-  t0 -= texSource.read(x + 2.0f * dx, y);
+
+  auto x_inputCoords1 = sycl::float2(ix - 2.0f, iy);
+  auto x_inputCoords2 = sycl::float2(ix - 1.0f, iy);
+  auto x_inputCoords3 = sycl::float2(ix + 1.0f, iy);
+  auto x_inputCoords4 = sycl::float2(ix + 2.0f, iy);
+
+  t0 = texSource.read(x_inputCoords1, texDesc)[0];
+  t0 -= texSource.read(x_inputCoords2, texDesc)[0] * 8.0f;
+  t0 += texSource.read(x_inputCoords3, texDesc)[0] * 8.0f;
+  t0 -= texSource.read(x_inputCoords4, texDesc)[0];
   t0 /= 12.0f;
 
-  t1 = texTarget.read(x - 2.0f * dx, y);
-  t1 -= texTarget.read(x - 1.0f * dx, y) * 8.0f;
-  t1 += texTarget.read(x + 1.0f * dx, y) * 8.0f;
-  t1 -= texTarget.read(x + 2.0f * dx, y);
+  t1 = texTarget.read(x_inputCoords1, texDesc)[0];
+  t1 -= texTarget.read(x_inputCoords2, texDesc)[0] * 8.0f;
+  t1 += texTarget.read(x_inputCoords3, texDesc)[0] * 8.0f;
+  t1 -= texTarget.read(x_inputCoords4, texDesc)[0];
   t1 /= 12.0f;
 
   Ix[pos] = (t0 + t1) * 0.5f;
 
   // t derivative
-  Iz[pos] = texTarget.read(x, y) - texSource.read(x, y);
+  auto inputCoord = sycl::float2(ix, iy);
+  Iz[pos] = texTarget.read(inputCoord, texDesc)[0] -
+            texSource.read(inputCoord, texDesc)[0];
 
   // y derivative
-  t0 = texSource.read(x, y - 2.0f * dy);
-  t0 -= texSource.read(x, y - 1.0f * dy) * 8.0f;
-  t0 += texSource.read(x, y + 1.0f * dy) * 8.0f;
-  t0 -= texSource.read(x, y + 2.0f * dy);
+  auto y_inputCoords1 = sycl::float2(ix, iy - 2.0f);
+  auto y_inputCoords2 = sycl::float2(ix, iy - 1.0f);
+  auto y_inputCoords3 = sycl::float2(ix, iy + 1.0f);
+  auto y_inputCoords4 = sycl::float2(ix, iy + 2.0f);
+
+  t0 = texSource.read(y_inputCoords1, texDesc)[0];
+  t0 -= texSource.read(y_inputCoords2, texDesc)[0] * 8.0f;
+  t0 += texSource.read(y_inputCoords3, texDesc)[0] * 8.0f;
+  t0 -= texSource.read(y_inputCoords4, texDesc)[0];
   t0 /= 12.0f;
 
-  t1 = texTarget.read(x, y - 2.0f * dy);
-  t1 -= texTarget.read(x, y - 1.0f * dy) * 8.0f;
-  t1 += texTarget.read(x, y + 1.0f * dy) * 8.0f;
-  t1 -= texTarget.read(x, y + 2.0f * dy);
+  t1 = texTarget.read(y_inputCoords1, texDesc)[0];
+  t1 -= texTarget.read(y_inputCoords2, texDesc)[0] * 8.0f;
+  t1 += texTarget.read(y_inputCoords3, texDesc)[0] * 8.0f;
+  t1 -= texTarget.read(y_inputCoords4, texDesc)[0];
   t1 /= 12.0f;
 
   Iy[pos] = (t0 + t1) * 0.5f;
@@ -113,74 +124,70 @@ void ComputeDerivativesKernel(int width, int height, int stride, float *Ix,
 /// \param[out] Iy  y derivative
 /// \param[out] Iz  temporal derivative
 ///////////////////////////////////////////////////////////////////////////////
-static void ComputeDerivatives(const float *I0, const float *I1, int w, int h,
-                               int s, float *Ix, float *Iy, float *Iz) {
+static void ComputeDerivatives(const float *I0, const float *I1, float *pI0_h,
+                               float *pI1_h, float *I0_h, float *I1_h,
+                               float *src_d0, float *src_d1, int w, int h,
+                               int s, float *Ix, float *Iy, float *Iz, sycl::queue q) {
   sycl::range<3> threads(1, 6, 32);
   sycl::range<3> blocks(1, iDivUp(h, threads[1]), iDivUp(w, threads[2]));
 
-  dpct::image_wrapper_base_p texSource, texTarget;
-  dpct::image_data texRes;
-  memset(&texRes, 0, sizeof(dpct::image_data));
+  int dataSize = s * h * sizeof(float);
 
-  texRes.set_data_type(dpct::image_data_type::pitch);
-  texRes.set_data_ptr((void *)I0);
-  /*
-  DPCT1059:10: SYCL only supports 4-channel image format. Adjust the code.
-  */
-  texRes.set_channel(dpct::image_channel::create<float>());
-  texRes.set_x(w);
-  texRes.set_y(h);
-  texRes.set_pitch(s * sizeof(float));
+  q.memcpy(I0_h, I0, dataSize);
+  q.memcpy(I1_h, I1, dataSize);
+  q.wait();
 
-  dpct::sampling_info texDescr;
-  memset(&texDescr, 0, sizeof(dpct::sampling_info));
+  for (int i = 0; i < h; i++) {
+    for (int j = 0; j < w; j++) {
+      int index = i * s + j;
+      pI0_h[index * 4 + 0] = I0_h[index];
+      pI0_h[index * 4 + 1] = pI0_h[index * 4 + 2] = pI0_h[index * 4 + 3] = 0.f;
+    }
+  }
 
-  texDescr.set(sycl::addressing_mode::mirrored_repeat,
-               sycl::filtering_mode::linear,
-               sycl::coordinate_normalization_mode::normalized);
-  /*
-  DPCT1062:11: SYCL Image doesn't support normalized read mode.
-  */
+  for (int i = 0; i < h; i++) {
+    for (int j = 0; j < w; j++) {
+      int index = i * s + j;
+      pI1_h[index * 4 + 0] = I1_h[index];
+      pI1_h[index * 4 + 1] = pI1_h[index * 4 + 2] = pI1_h[index * 4 + 3] = 0.f;
+    }
+  }
 
-  checkCudaErrors(DPCT_CHECK_ERROR(
-      texSource = dpct::create_image_wrapper(texRes, texDescr)));
-  memset(&texRes, 0, sizeof(dpct::image_data));
-  texRes.set_data_type(dpct::image_data_type::pitch);
-  texRes.set_data_ptr((void *)I1);
-  /*
-  DPCT1059:12: SYCL only supports 4-channel image format. Adjust the code.
-  */
-  texRes.set_channel(dpct::image_channel::create<float>());
-  texRes.set_x(w);
-  texRes.set_y(h);
-  texRes.set_pitch(s * sizeof(float));
-  checkCudaErrors(DPCT_CHECK_ERROR(
-      texTarget = dpct::create_image_wrapper(texRes, texDescr)));
+  q.memcpy(src_d0, pI0_h, s * h * sizeof(sycl::float4));
+  q.memcpy(src_d1, pI1_h, s * h * sizeof(sycl::float4));
 
-  /*
-  DPCT1049:9: The work-group size passed to the SYCL kernel may exceed the
-  limit. To get the device limit, query info::device::max_work_group_size.
-  Adjust the work-group size if needed.
-  */
-  dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+  q.wait();
+
+  auto texDescr = sycl::sampler(
+      sycl::coordinate_normalization_mode::unnormalized,
+      sycl::addressing_mode::clamp_to_edge, sycl::filtering_mode::nearest);
+
+  auto texSource =
+      sycl::image<2>(src_d0, sycl::image_channel_order::rgba,
+                         sycl::image_channel_type::fp32, sycl::range<2>(w, h),
+                         sycl::range<1>(s * sizeof(sycl::float4)));
+
+  auto texTarget =
+      sycl::image<2>(src_d1, sycl::image_channel_order::rgba,
+                         sycl::image_channel_type::fp32, sycl::range<2>(w, h),
+                         sycl::range<1>(s * sizeof(sycl::float4)));
+  
+  
+  q.submit([&](sycl::handler &cgh) {
     auto texSource_acc =
-        static_cast<dpct::image_wrapper<float, 2> *>(texSource)->get_access(
-            cgh);
-    auto texTarget_acc =
-        static_cast<dpct::image_wrapper<float, 2> *>(texTarget)->get_access(
-            cgh);
-
-    auto texSource_smpl = texSource->get_sampler();
-    auto texTarget_smpl = texTarget->get_sampler();
+         texSource.template get_access<sycl::float4,
+                                       sycl::access::mode::read>(cgh);
+     auto texTarget_acc =
+         texTarget.template get_access<sycl::float4,
+                                       sycl::access::mode::read>(cgh);
 
     cgh.parallel_for(
         sycl::nd_range<3>(blocks * threads, threads),
         [=](sycl::nd_item<3> item_ct1) {
           ComputeDerivativesKernel(
               w, h, s, Ix, Iy, Iz,
-              dpct::image_accessor_ext<float, 2>(texSource_smpl, texSource_acc),
-              dpct::image_accessor_ext<float, 2>(texTarget_smpl, texTarget_acc),
-              item_ct1);
+             texSource_acc, texTarget_acc,
+              texDescr, item_ct1);
         });
   });
 }

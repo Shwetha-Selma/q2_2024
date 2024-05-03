@@ -1,3 +1,9 @@
+//=========================================================
+// Modifications Copyright © 2022 Intel Corporation
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//=========================================================
+
 /* Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -54,7 +60,7 @@ void JacobiIteration(const float *du0, const float *dv0,
                                 const sycl::nd_item<3> &item_ct1,
                                 volatile float *du, volatile float *dv) {
   // Handle to thread block group
-  sycl::group<3> cta = item_ct1.get_group();
+  auto cta = item_ct1.get_group();
 
   const int ix = item_ct1.get_local_id(2) +
                  item_ct1.get_group(2) * item_ct1.get_local_range(2);
@@ -184,7 +190,7 @@ void JacobiIteration(const float *du0, const float *dv0,
 ///////////////////////////////////////////////////////////////////////////////
 static void SolveForUpdate(const float *du0, const float *dv0, const float *Ix,
                            const float *Iy, const float *Iz, int w, int h,
-                           int s, float alpha, float *du1, float *dv1) {
+                           int s, float alpha, float *du1, float *dv1, sycl::queue q) {
   // CTA size
   sycl::range<3> threads(1, 6, 32);
   // grid size
@@ -195,19 +201,18 @@ static void SolveForUpdate(const float *du0, const float *dv0, const float *Ix,
   limit. To get the device limit, query info::device::max_work_group_size.
   Adjust the work-group size if needed.
   */
-  dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
+  q.submit([&](sycl::handler &cgh) {
     sycl::local_accessor<float, 1> du_acc_ct1(
         sycl::range<1>((32 + 2) * (6 + 2)), cgh);
     sycl::local_accessor<float, 1> dv_acc_ct1(
         sycl::range<1>((32 + 2) * (6 + 2)), cgh);
 
-    cgh.parallel_for(
-        sycl::nd_range<3>(blocks * threads, threads),
-        [=](sycl::nd_item<3> item_ct1) {
-          JacobiIteration<32, 6>(
-              du0, dv0, Ix, Iy, Iz, w, h, s, alpha, du1, dv1, item_ct1,
-              du_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get(),
-              dv_acc_ct1.get_multi_ptr<sycl::access::decorated::no>().get());
-        });
+    cgh.parallel_for(sycl::nd_range<3>(blocks * threads, threads),
+                     [=](sycl::nd_item<3> item_ct1) {
+                       JacobiIteration<32, 6>(du0, dv0, Ix, Iy, Iz, w, h, s,
+                                              alpha, du1, dv1, item_ct1,
+                                              du_acc_ct1.get_pointer(),
+                                              dv_acc_ct1.get_pointer());
+                     });
   });
 }

@@ -1,3 +1,9 @@
+//=========================================================
+// Modifications Copyright © 2022 Intel Corporation
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//=========================================================
+
 /* Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -39,7 +45,10 @@
 /// \param[out] out     result
 ///////////////////////////////////////////////////////////////////////////////
 void DownscaleKernel(int width, int height, int stride, float *out,
-                     dpct::image_accessor_ext<float, 2> texFine,
+                     sycl::accessor<sycl::float4, 2, sycl::access::mode::read,
+                              sycl::access::target::image>
+                         tex_acc,
+                     sycl::sampler texDesc,
                      const sycl::nd_item<3> &item_ct1) {
   const int ix = item_ct1.get_local_id(2) +
                  item_ct1.get_group(2) * item_ct1.get_local_range(2);
@@ -50,17 +59,18 @@ void DownscaleKernel(int width, int height, int stride, float *out,
     return;
   }
 
-  float dx = 1.0f / (float)width;
-  float dy = 1.0f / (float)height;
+  int srcx = ix * 2;
+  int srcy = iy * 2;
 
-  float x = ((float)ix + 0.5f) * dx;
-  float y = ((float)iy + 0.5f) * dy;
-printf("down 6\n");
-/*  out[ix + iy * stride] =
-      0.25f *
-      (texFine.read(x - dx * 0.25f, y) + texFine.read(x + dx * 0.25f, y) +
-       texFine.read(x, y - dy * 0.25f) + texFine.read(x, y + dy * 0.25f));
-*/printf("down 7\n");
+  auto inputCoords1 = sycl::float2(srcx + 0, srcy + 0);
+  auto inputCoords2 = sycl::float2(srcx + 0, srcy + 1);
+  auto inputCoords3 = sycl::float2(srcx + 1, srcy + 0);
+  auto inputCoords4 = sycl::float2(srcx + 1, srcy + 1);
+
+  out[ix + iy * stride] = 0.25f * (tex_acc.read(inputCoords1, texDesc)[0] +
+                                   tex_acc.read(inputCoords2, texDesc)[0] +
+                                   tex_acc.read(inputCoords3, texDesc)[0] +
+                                   tex_acc.read(inputCoords4, texDesc)[0]);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -72,61 +82,44 @@ printf("down 6\n");
 /// \param[in]  stride  image stride
 /// \param[out] out     result
 ///////////////////////////////////////////////////////////////////////////////
-static void Downscale(const float *src, int width, int height, int stride,
-                      int newWidth, int newHeight, int newStride, float *out) {
+static void Downscale(const float *src, float *pI0_h, float *I0_h, float *src_p, int width, int height, int stride,
+                      int newWidth, int newHeight, int newStride, float *out, sycl::queue q) {
   sycl::range<3> threads(1, 8, 32);
   sycl::range<3> blocks(1, iDivUp(newHeight, threads[1]),
                         iDivUp(newWidth, threads[2]));
 
-printf("down 1\n");
-  dpct::image_wrapper_base_p texFine;
-  dpct::image_data texRes;
-  memset(&texRes, 0, sizeof(dpct::image_data));
+  int dataSize = height * stride * sizeof(float);
 
-  texRes.set_data_type(dpct::image_data_type::pitch);
-  texRes.set_data_ptr((void *)src);
-  /*
-  DPCT1059:1: SYCL only supports 4-channel image format. Adjust the code.
-  */
-  texRes.set_channel(dpct::image_channel::create<float>());
-  texRes.set_x(width);
-  texRes.set_y(height);
-  texRes.set_pitch(stride * sizeof(float));
-printf("down 2\n");
-  dpct::sampling_info texDescr;
-  memset(&texDescr, 0, sizeof(dpct::sampling_info));
+  q.memcpy(I0_h, src, dataSize).wait();
 
-  texDescr.set(sycl::addressing_mode::mirrored_repeat,
-               sycl::filtering_mode::linear,
-               sycl::coordinate_normalization_mode::normalized);
-  /*
-  DPCT1062:2: SYCL Image doesn't support normalized read mode.
-  */
-printf("down 3\n");
-  checkCudaErrors(
-      DPCT_CHECK_ERROR(texFine = dpct::create_image_wrapper(texRes, texDescr)));
-printf("down 4\n");
-  /*
-  DPCT1049:0: The work-group size passed to the SYCL kernel may exceed the
-  limit. To get the device limit, query info::device::max_work_group_size.
-  Adjust the work-group size if needed.
-  */
-  dpct::get_in_order_queue().submit([&](sycl::handler &cgh) {
-    auto texFine_acc =
-        static_cast<dpct::image_wrapper<float, 2> *>(texFine)->get_access(cgh);
+  for (int i = 0; i < height; i++) {
+    for (int j = 0; j < width; j++) {
+      int index = i * stride + j;
+      pI0_h[index * 4 + 0] = I0_h[index];
+      pI0_h[index * 4 + 1] = pI0_h[index * 4 + 2] = pI0_h[index * 4 + 3] = 0.f;
+    }
+  }
 
-    auto texFine_smpl = texFine->get_sampler();
-auto var = dpct::image_accessor_ext<float, 2>(texFine_smpl, texFine_acc);
-printf("down 5\n");
+  q.memcpy(src_p, pI0_h, height * width * sizeof(sycl::float4)).wait();
+  
+  auto texDescr = sycl::sampler(
+      sycl::coordinate_normalization_mode::unnormalized,
+      sycl::addressing_mode::clamp_to_edge, sycl::filtering_mode::nearest);
+
+  auto texFine = sycl::image<2>(src_p, sycl::image_channel_order::rgba,
+                                    sycl::image_channel_type::fp32,
+                                    sycl::range<2>(width, height),
+                                    sycl::range<1>(stride * sizeof(sycl::float4)));
+  
+  q.submit([&](sycl::handler &cgh) {
+    auto tex_acc =
+         texFine.template get_access<sycl::float4,
+                                     sycl::access::mode::read>(cgh);
 
     cgh.parallel_for(sycl::nd_range<3>(blocks * threads, threads),
                      [=](sycl::nd_item<3> item_ct1) {
                        DownscaleKernel(newWidth, newHeight, newStride, out,
-                                       dpct::image_accessor_ext<float, 2>(
-                                           texFine_smpl, texFine_acc),
-                                       item_ct1);
+                                       tex_acc, texDescr, item_ct1);
                      });
   });
-
-printf("down 8\n");
 }

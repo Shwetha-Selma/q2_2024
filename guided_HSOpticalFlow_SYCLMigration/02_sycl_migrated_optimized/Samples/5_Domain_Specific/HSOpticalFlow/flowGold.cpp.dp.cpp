@@ -1,3 +1,10 @@
+//=========================================================
+// Modifications Copyright © 2022 Intel Corporation
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//=========================================================
+
+
 /* Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -46,6 +53,9 @@ inline float Tex2D(const float *t, int w, int h, int s, float x, float y) {
   // integer parts in floating point format
   float intPartX, intPartY;
 
+  x -= 0.5f;
+  y -= 0.5f;
+
   // get fractional parts of coordinates
   float dx = fabsf(modff(x, &intPartX));
   float dy = fabsf(modff(y, &intPartY));
@@ -56,21 +66,21 @@ inline float Tex2D(const float *t, int w, int h, int s, float x, float y) {
   int iy0 = (int)intPartY;
 
   // mirror out-of-range position
-  if (ix0 < 0) ix0 = abs(ix0 + 1);
+  if (ix0 < 0) ix0 = 0;
 
-  if (iy0 < 0) iy0 = abs(iy0 + 1);
+  if (iy0 < 0) iy0 = 0;
 
-  if (ix0 >= w) ix0 = w * 2 - ix0 - 1;
+  if (ix0 >= w) ix0 = w - 1;
 
-  if (iy0 >= h) iy0 = h * 2 - iy0 - 1;
+  if (iy0 >= h) iy0 = h - 1;
 
   // corner which is opposite to (ix0, iy0)
   int ix1 = ix0 + 1;
   int iy1 = iy0 + 1;
 
-  if (ix1 >= w) ix1 = w * 2 - ix1 - 1;
+  if (ix1 >= w) ix1 = w - 1;
 
-  if (iy1 >= h) iy1 = h * 2 - iy1 - 1;
+  if (iy1 >= h) iy1 = h - 1;
 
   float res = t[ix0 + iy0 * s] * (1.0f - dx) * (1.0f - dy);
   res += t[ix1 + iy0 * s] * dx * (1.0f - dy);
@@ -94,13 +104,13 @@ inline float Tex2D(const float *t, int w, int h, int s, float x, float y) {
 /// \return fetched value
 ///////////////////////////////////////////////////////////////////////////////
 inline float Tex2Di(const float *src, int w, int h, int s, int x, int y) {
-  if (x < 0) x = abs(x + 1);
+  if (x < 0) x = 0;
 
-  if (y < 0) y = abs(y + 1);
+  if (y < 0) y = 0;
 
-  if (x >= w) x = w * 2 - x - 1;
+  if (x >= w) x = w - 1;
 
-  if (y >= h) y = h * 2 - y - 1;
+  if (y >= h) y = h - 1;
 
   return src[x + y * s];
 }

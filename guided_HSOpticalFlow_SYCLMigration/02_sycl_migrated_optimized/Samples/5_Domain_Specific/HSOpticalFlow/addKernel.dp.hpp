@@ -1,3 +1,9 @@
+//=========================================================
+// Modifications Copyright © 2022 Intel Corporation
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//=========================================================
+
 /* Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,52 +31,43 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-///////////////////////////////////////////////////////////////////////////////
-// Header for common includes and utility functions
-///////////////////////////////////////////////////////////////////////////////
-
-#ifndef COMMON_H
-#define COMMON_H
+#include <sycl/sycl.hpp>
+#include <dpct/dpct.hpp>
+#include "common.h"
 
 ///////////////////////////////////////////////////////////////////////////////
-// Common includes
+/// \brief add two vectors of size _count_
+///
+/// CUDA kernel
+/// \param[in]  op1   term one
+/// \param[in]  op2   term two
+/// \param[in]  count vector size
+/// \param[out] sum   result
 ///////////////////////////////////////////////////////////////////////////////
+void AddKernel(const float *op1, const float *op2, int count,
+                          float *sum, const sycl::nd_item<3> &item_ct1) {
+  const int pos = item_ct1.get_local_id(2) +
+                  item_ct1.get_group(2) * item_ct1.get_local_range(2);
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <time.h>
-#include <memory.h>
-#include <math.h>
+  if (pos >= count) return;
 
-#include <helper_cuda.h>
-
-///////////////////////////////////////////////////////////////////////////////
-// Common constants
-///////////////////////////////////////////////////////////////////////////////
-const int StrideAlignment = 32;
-
-///////////////////////////////////////////////////////////////////////////////
-// Common functions
-///////////////////////////////////////////////////////////////////////////////
-
-// Align up n to the nearest multiple of m
-inline int iAlignUp(int n, int m = StrideAlignment) {
-  int mod = n % m;
-
-  if (mod)
-    return n + m - mod;
-  else
-    return n;
+  sum[pos] = op1[pos] + op2[pos];
 }
 
-// round up n/m
-inline int iDivUp(int n, int m) { return (n + m - 1) / m; }
+///////////////////////////////////////////////////////////////////////////////
+/// \brief add two vectors of size _count_
+/// \param[in]  op1   term one
+/// \param[in]  op2   term two
+/// \param[in]  count vector size
+/// \param[out] sum   result
+///////////////////////////////////////////////////////////////////////////////
+static void Add(const float *op1, const float *op2, int count, float *sum, sycl::queue q) {
+  sycl::range<3> threads(1, 1, 256);
+  sycl::range<3> blocks(1, 1, iDivUp(count, threads[2]));
 
-// swap two values
-template <typename T>
-inline void Swap(T &a, T &b) {
-  T t = a;
-  a = b;
-  b = t;
+  q.parallel_for(
+      sycl::nd_range<3>(blocks * threads, threads),
+      [=](sycl::nd_item<3> item_ct1) {
+        AddKernel(op1, op2, count, sum, item_ct1);
+      });
 }
-#endif

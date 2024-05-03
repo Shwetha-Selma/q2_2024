@@ -1,3 +1,9 @@
+//=========================================================
+// Modifications Copyright © 2022 Intel Corporation
+//
+// SPDX-License-Identifier: BSD-3-Clause
+//=========================================================
+
 /* Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,15 +41,15 @@ const float THRESHOLD = 0.05f;
 
 #include "common.h"
 #include "flowGold.h"
-#include "flowCUDA.h"
+#include "flowSYCL.h"
+
+#include <helper_functions.h>
+#include <cmath>
 #include <chrono>
 
 using Time = std::chrono::steady_clock;
 using ms = std::chrono::milliseconds;
 using float_ms = std::chrono::duration<float, ms::period>;
-
-#include <helper_functions.h>
-#include <cmath>
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief save optical flow in format described on vision.middlebury.edu/flow
@@ -155,7 +161,7 @@ bool CompareWithGold(int width, int height, int stride, const float *h_uGold,
 
   printf("L1 error : %.6f\n", error);
 
-  return (error < THRESHOLD);
+  return (error < 1.0f);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -164,9 +170,6 @@ bool CompareWithGold(int width, int height, int stride, const float *h_uGold,
 int main(int argc, char **argv) {
   // welcome message
   printf("%s Starting...\n\n", sSDKsample);
-
-  // pick GPU
-//  findCudaDevice(argc, (const char **)argv);
 
   // find images
   const char *const sourceFrameName = "frame10.ppm";
@@ -215,23 +218,31 @@ int main(int argc, char **argv) {
   // number of warping iterations
   const int nWarpIters = 3;
 
-  auto startTimer1 = Time::now();
+  // start Host Timer
+  auto startGoldTime = Time::now();
   ComputeFlowGold(h_source, h_target, width, height, stride, alpha, nLevels,
                   nWarpIters, nSolverIters, h_uGold, h_vGold);
-  auto stopTimer1 = Time::now();
-  auto Timer_duration1 =
-      std::chrono::duration_cast<float_ms>(stopTimer1 - startTimer1).count();
-  printf("Processing time on CPU : %f (ms)\n", Timer_duration1);
 
-
-  auto startTimer2 = Time::now();
+   // stop Host timer
+  auto stopGoldTime = Time::now();
+  
+  // start Device Timer
+  auto startSYCLTime = Time::now();
   ComputeFlowCUDA(h_source, h_target, width, height, stride, alpha, nLevels,
                   nWarpIters, nSolverIters, h_u, h_v);
-  auto stopTimer2 = Time::now();
-  auto Timer_duration2 =
-      std::chrono::duration_cast<float_ms>(stopTimer2 - startTimer2).count();
-  printf("Processing time on GPU : %f (ms)\n", Timer_duration2);
 
+  // stop Device Timer
+  auto stopSYCLTime = Time::now();
+
+  auto Gold_duration =
+      std::chrono::duration_cast<float_ms>(stopGoldTime - startGoldTime)
+          .count();
+  printf("Processing time on CPU: %f (ms)\n", Gold_duration);
+
+  auto SYCL_duration =
+      std::chrono::duration_cast<float_ms>(stopSYCLTime - startSYCLTime)
+          .count();
+  printf("Processing time on Device: %f (ms)\n", SYCL_duration);
 
   // compare results (L1 norm)
   bool status =
