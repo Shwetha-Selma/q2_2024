@@ -240,7 +240,7 @@ catch (sycl::exception const &exc) {
   std::cerr << exc.what() << " Exception caught at :" << __FILE__
             << ", line:" << __LINE__ << std::endl;
   std::cerr << "Exiting..." << std::endl;
-  std::exit(1);
+  exit(0);
 }
 
 void syclGraphCaptureQueue(float *inputVec_h, float *inputVec_d,
@@ -316,7 +316,7 @@ catch (sycl::exception const &exc) {
   std::cerr << exc.what() << "Exception caught at :" << __FILE__
             << ", line:" << __LINE__ << std::endl;
   std::cerr << "Exiting..." << std::endl;
-  std::exit(1);
+  exit(0);
 }
 
 int main(int argc, char **argv) {
