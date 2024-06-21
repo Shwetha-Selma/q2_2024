@@ -37,7 +37,7 @@
 #include <vector>
 #include "jacobi.h"
 #include <taskflow/taskflow.hpp>
-#include <taskflow/sycl/syclflow.hpp>
+//#include <taskflow/sycl/syclflow.hpp>
 
 // 8 Rows of square-matrix A processed by each CTA.
 // This can be max 32 and only power of 2 (i.e., 2/4/8/16/32).
