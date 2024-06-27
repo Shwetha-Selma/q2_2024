@@ -4,7 +4,7 @@ The `pSTL_offload` sample demonstrates the offloading of C++ standard parallel a
 
 | Area                      | Description
 |:---                       |:---
-| What you will learn       | Offloading of C++ standard algorithms to GPU device. 
+| What you will learn       | Offloading of C++ standard algorithms to GPU devices. 
 | Time to complete          | 15 minutes
 | Category                  | Concepts and Functionality
 
@@ -12,7 +12,7 @@ The `pSTL_offload` sample demonstrates the offloading of C++ standard parallel a
 
 ## Purpose
 
-Offloading the C++ stanadard parallel STL code (par-unseq policy) to GPU and CPU  without any code changes when using `-fsycl-pstl-offload` compiler option with Intel® DPC+/C+ compiler. It is an experimental feature of oneDPL.
+Offloading the C++ standard parallel STL code (par-unseq policy) to GPU and CPU  without any code changes when using the `-fsycl-pstl-offload` compiler option with Intel® DPC+/C+ compiler. It is an experimental feature of oneDPL.
 
 This folder contains two sample examples in the following folders:
 
@@ -21,7 +21,7 @@ This folder contains two sample examples in the following folders:
 | `FileWordCount`                       | Counting Words in Files Example
 | `WordCount`                           | Counting Words generated Example
 
-> **Note**: For more information refer [Get Started with Parallel STL](https://www.intel.com/content/www/us/en/developer/articles/guide/get-started-with-parallel-stl.html).
+> **Note**: For more information refer to [Get Started with Parallel STL](https://www.intel.com/content/www/us/en/developer/articles/guide/get-started-with-parallel-stl.html).
 
 
 ## Prerequisites
@@ -34,9 +34,9 @@ This folder contains two sample examples in the following folders:
 
 ## Key Implementation Details
 
-The example includes two samples `FileWordCount` and `WordCount` which counts the number of words in files and number of words generated respectively using the standard C++17 Parallel Algorithm [transfor_reduce](https://en.cppreference.com/w/cpp/algorithm/transform_reduce). This computation can be offloaded to the GPU device with the help of `-fsycl-pstl-offload` compiler option and standard <algorithm> header inclusion is explicitly required for PSTL Offload to work.
-FileWordCount sample also demonstrates use of transform, copy, copy_if and for_each standard C++17 Parallel Algorithms.
-The `-fsycl-pstl-offload` option enables the offloading of C++ standard parallel algorithms that were only called with `std::execution::par_unseq` policy to a SYCL device. The offloaded algorithms are implemented via the oneAPI Data Parallel C++ Library (oneDPL). This option is an experimental feature. If the argument is not specified then the compiler perform offloading to the default SYCL device.
+The example includes two samples `FileWordCount` and `WordCount` which count the number of words in files and the number of words generated respectively using the standard C++17 Parallel Algorithm [transfor_reduce](https://en.cppreference.com/w/cpp/algorithm/transform_reduce). This computation can be offloaded to the GPU device with the help of `-fsycl-pstl-offload` compiler option and standard <algorithm> header inclusion is explicitly required for PSTL Offload to work.
+FileWordCount sample also demonstrates the use of transform, copy, copy_if, and for_each standard C++17 Parallel Algorithms.
+The `-fsycl-pstl-offload` option enables the offloading of C++ standard parallel algorithms that were only called with `std::execution::par_unseq` policy to a SYCL device. The offloaded algorithms are implemented via the oneAPI Data Parallel C++ Library (oneDPL). This option is an experimental feature. If the argument is not specified, the compiler offloads to the default SYCL device.
 The performance of memory allocations may be improved by using the `SYCL_PI_LEVEL_ZERO_USM_ALLOCATOR` environment variable.
 
 ## Set Environment Variables
@@ -91,7 +91,7 @@ When working with the command-line interface (CLI), you should configure the one
    $ unset ONEAPI_DEVICE_SELECTOR
    ```
 
-   Run `pSTL_offload-FileWordCount` for GPU.
+   Run `pSTL_offload-FileWordCount` on GPU.
    ```
    $ export ONEAPI_DEVICE_SELECTOR=level_zero:gpu
    $ make run_fwc0               //for SEQ Policy
@@ -99,7 +99,7 @@ When working with the command-line interface (CLI), you should configure the one
    $ unset ONEAPI_DEVICE_SELECTOR
    ```
     
-   Run `pSTL_offload-FileWordCount` for CPU.
+   Run `pSTL_offload-FileWordCount` on CPU.
     ```
     $ export ONEAPI_DEVICE_SELECTOR=*:cpu
     $ make run_fwc0              //for SEQ Policy
